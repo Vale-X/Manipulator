@@ -8,7 +8,7 @@ This changelog is an extended version of the one found on the store, as to keep 
 
   `0.3.0`
   
-:   - __Added melee attack animations (still WIP).__
+- __Added melee attack animations (still WIP).__
 - __Added body collisions and ragdoll components.__
 - __Changes to skills:__
     - Increased Lightning Cross's (Primary) wave proc coefficient from 0 to 1.
@@ -43,11 +43,11 @@ This changelog is an extended version of the one found on the store, as to keep 
 
   `0.2.1`
   
-:   - __Updated for the latest RoR2 update (v1.1.1.2).__
+- __Updated for the latest RoR2 update (v1.1.1.2).__
 
   `0.2.0`
-  
-:   - __Updated for the Anniversary Update.__
+
+- __Updated for the Anniversary Update.__
 - __Changed thunderstore team name to ValeX.__
 - __Added custom model. Animations are still a WIP.__
 - __Added custom survivor icon.__
@@ -63,14 +63,14 @@ This changelog is an extended version of the one found on the store, as to keep 
 
   `0.1.2`
   
-:   - __Removed 'unlock' achievement (temporarily, until a proper achievement is made).__
+- __Removed 'unlock' achievement (temporarily, until a proper achievement is made).__
 
   `0.1.1`
   
-:   - __Added tips.__
+- __Added tips.__
 - __Fixes:__
     - Fixed: Artificer's Pillars in Ice Wall being the same size as Manipulator's Cryospire.
 
   `0.1.0`
   
-:  - __Initial release.__
+- __Initial release.__
