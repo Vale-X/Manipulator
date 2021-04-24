@@ -6,6 +6,23 @@ This github project is currently a complete _mess_. So is the code. Please know 
 ## Extended Changelog
 This changelog is an extended version of the one found on the store, as to keep out the minor changes.
 
+  `0.3.1`
+  
+- __Added some animations, tweaked others (still WIP).__
+- __Updated loadout skin icon.__
+- __Removed Henry related content from the asset bundle.__
+- __Disabled item displays (unintentionally was using Henry's item display rules).__
+- __Changes to skills:__
+    - Increased Cross's (Primary) Melee attack size.
+    - Decreased Cross's (Primary) wave damage from 200% to 150%.
+	- Increased Cross's (Primary) wave speed from 80 to 100.
+	- Cross projectiles are now rotated to match the slash animation.
+	- Decreased Venting Step's (Utility) cooldown from 8 to 6.
+	- Decreased venting Step's (Utility) radius from 10 to 5 (Lighting blast radius is still 5).
+- __Fixes:__
+    - Fixed: Could start sprinting while using Cross (Primary). Reported by: HaalfNHaalf.
+	- Fixed: Cryospire refunded utility instead of secondary on miss. Reported by: HaalfNHaalf.
+
   `0.3.0`
   
 - __Added melee attack animations (still WIP).__
