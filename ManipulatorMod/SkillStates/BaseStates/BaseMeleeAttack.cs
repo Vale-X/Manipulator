@@ -98,7 +98,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
 
         protected virtual void PlaySwingEffect()
         {
-            EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
+            //EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
         }
 
         protected virtual void OnHitEnemyAuthority()

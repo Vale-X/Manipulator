@@ -24,7 +24,8 @@ namespace ManipulatorMod
         "OrbAPI",
         "EffectAPI",
         "BuffAPI",
-        "UnlockableAPI"
+        "UnlockableAPI",
+        "LoadoutAPI"
     })]
 
     public class ManipulatorPlugin : BaseUnityPlugin
@@ -72,7 +73,7 @@ namespace ManipulatorMod
 
         private void Start()
         {
-            Modules.Survivors.Manipulator.SetItemDisplays();
+            //Modules.Survivors.Manipulator.SetItemDisplays();
         }
 
         private void Hook()

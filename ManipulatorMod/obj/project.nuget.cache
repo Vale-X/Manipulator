@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+2t+OyRDpQ+5tY1acrCjpQGYzHlHM2mTchQkPY6P0ovgEDdUbhX7OhsTfPfmeFPlsdckc+1mnOMHchlT+f4tBQ==",
+  "dgSpecHash": "0PgPA7/vxhSEZqaUYMPbtKvh0fp53KH8mIV9LDiZiHk5iW8OzohbQ00wUhW3thIeTZ+Hrb+pWeXc90pFgII0uQ==",
   "success": true,
-  "projectFilePath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\ManipulatorMod-master\\ManipulatorMod\\ManipulatorMod.csproj",
+  "projectFilePath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\Manipulator\\ManipulatorMod\\ManipulatorMod.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kyle\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Kyle\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

@@ -21,7 +21,7 @@ namespace ManipulatorMod.SkillStates
         public static float waveForce = StatValues.waveForce;
         public static bool canFire = true;
         public GameObject wavePrefab = Modules.Projectiles.waveFirePrefab;
-        //public static GameObject wavePrefabAlt = Modules.Projectiles.waveFirePrefabAlt;
+        public GameObject wavePrefabAlt = Modules.Projectiles.waveFirePrefabAlt;
         private float attackDuration = StatValues.attackDuration;
         private ManipulatorController manipulatorController;
 
@@ -35,17 +35,17 @@ namespace ManipulatorMod.SkillStates
                 case ManipulatorController.ManipulatorElement.Fire:
                     MeleeElement = DamageType.IgniteOnHit;
                     this.wavePrefab = Modules.Projectiles.waveFirePrefab;
-                    //wavePrefabAlt = Modules.Projectiles.waveFirePrefabAlt;
+                    this.wavePrefabAlt = Modules.Projectiles.waveFirePrefabAlt;
                     break;
                 case ManipulatorController.ManipulatorElement.Lightning:
                     MeleeElement = DamageType.Generic;
                     this.wavePrefab = Modules.Projectiles.waveLightningPrefab;
-                    //wavePrefabAlt = Modules.Projectiles.waveLightningPrefabAlt;
+                    this.wavePrefabAlt = Modules.Projectiles.waveLightningPrefabAlt;
                     break;
                 case ManipulatorController.ManipulatorElement.Ice:
                     MeleeElement = DamageType.SlowOnHit;
                     this.wavePrefab = Modules.Projectiles.waveIcePrefab;
-                    //wavePrefabAlt = Modules.Projectiles.waveIcePrefabAlt;
+                    this.wavePrefabAlt = Modules.Projectiles.waveIcePrefabAlt;
                     break;
             }
 
@@ -67,9 +67,6 @@ namespace ManipulatorMod.SkillStates
             this.swingSoundString = "ManipulatorSwordSwing";
             this.hitSoundString = "";
             this.muzzleString = swingIndex % 2 == 0 ? "SwingLeft" : "SwingRight";
-            this.swingEffectPrefab = Modules.Assets.swordSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.swordHitImpactEffect;
-            this.impactSound = Modules.Assets.swordHitSoundEvent.index;
 
             //ChangeRotation();
 
@@ -82,18 +79,11 @@ namespace ManipulatorMod.SkillStates
             switch (this.swingIndex)
             {
                 case 0:
-                    GameObject child = wavePrefab.transform.GetChild(0).gameObject;
-                    var rotation = Quaternion.Euler(StatValues.waveRotation1);
-                    child.transform.localRotation = rotation;
-                    var controller = child.GetComponent<ProjectileController>();
-                    controller.transform.localRotation = rotation;
+
                     Debug.LogWarning("case 0");
                     break;
                 case 1:
-                    var rotation2 = Quaternion.Euler(StatValues.waveRotation2);
-                    this.wavePrefab.transform.localRotation = rotation2;
-                    var controller2 = this.wavePrefab.GetComponent<ProjectileController>();
-                    controller2.transform.localRotation = rotation2;
+
                     Debug.LogWarning("case 1");
                     break;
             }
@@ -123,11 +113,16 @@ namespace ManipulatorMod.SkillStates
                 if (base.isAuthority)
                 {
                     //get aim direction
-                    Ray aimRay = base.GetAimRay();
-                    //aimRay.direction += StatValues.waveRotation1;
+                    Ray aimRay = base.GetAimRay(); 
+
+                    /*ChildLocator childLocator = base.GetModelChildLocator();
+                    Transform maniSwordTransform = childLocator.FindChild("ManiSword");
+                    Debug.LogWarning(maniSwordTransform);
+                    Vector3 angle = maniSwordTransform.forward;
+                    Debug.LogWarning(angle);*/
 
                     //spawn wave projectile
-                    ProjectileManager.instance.FireProjectile(this.wavePrefab,
+                    ProjectileManager.instance.FireProjectile((this.swingIndex == 1 ? this.wavePrefab : this.wavePrefabAlt),
                         aimRay.origin,
                         Util.QuaternionSafeLookRotation(aimRay.direction),
                         base.gameObject,

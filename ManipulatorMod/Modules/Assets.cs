@@ -15,45 +15,8 @@ namespace ManipulatorMod.Modules
         // the assetbundle to load assets from
         internal static AssetBundle mainAssetBundle;
 
-        // particle effects
-        internal static GameObject swordSwingEffect;
-        internal static GameObject swordHitImpactEffect;
-
-        internal static GameObject punchSwingEffect;
-        internal static GameObject punchImpactEffect;
-
-        internal static GameObject fistBarrageEffect;
-
-        internal static GameObject bombExplosionEffect;
-        internal static GameObject bazookaExplosionEffect;
-        internal static GameObject bazookaMuzzleFlash;
-        internal static GameObject dustEffect;
-
-        internal static GameObject muzzleFlashEnergy;
-        internal static GameObject swordChargeEffect;
-        internal static GameObject swordChargeFinishEffect;
-        internal static GameObject minibossEffect;
-
-        internal static GameObject spearSwingEffect;
-
-        internal static GameObject nemSwordSwingEffect;
-        internal static GameObject nemSwordHeavySwingEffect;
-        internal static GameObject nemSwordHitImpactEffect;
-
-        internal static GameObject shotgunTracer;
-        internal static GameObject energyTracer;
-
-        // custom crosshair
-        internal static GameObject bazookaCrosshair;
-
         // tracker
         internal static GameObject trackerPrefab;
-
-
-        // networked hit sounds
-        internal static NetworkSoundEventDef swordHitSoundEvent;
-        internal static NetworkSoundEventDef punchHitSoundEvent;
-        internal static NetworkSoundEventDef nemSwordHitSoundEvent;
 
         internal static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
 
@@ -80,73 +43,8 @@ namespace ManipulatorMod.Modules
                 manifestResourceStream2.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
             }
-            swordHitSoundEvent = CreateNetworkSoundEventDef("ManipulatorSwordHit");
-            punchHitSoundEvent = CreateNetworkSoundEventDef("ManipulatorPunchHit");
 
-            dustEffect = LoadEffect("ManipulatorDustEffect");
-            bombExplosionEffect = LoadEffect("BombExplosionEffect", ""); //HenryBombExplosion
-            bazookaExplosionEffect = LoadEffect("ManipulatorBazookaExplosionEffect", ""); //HenryBazookaExplosion
-            bazookaMuzzleFlash = LoadEffect("ManipulatorBazookaMuzzleFlash");
-
-            GetMageJetMaterial();
-
-            /*swordChargeFinishEffect = LoadEffect("SwordChargeFinishEffect");
-            Debug.LogWarning("4.1");
-            swordChargeEffect = mainAssetBundle.LoadAsset<GameObject>("SwordChargeEffect");
-            Debug.LogWarning("4.2");
-            swordChargeEffect.AddComponent<ScaleParticleSystemDuration>().particleSystems = swordChargeEffect.GetComponentsInChildren<ParticleSystem>();
-            Debug.LogWarning("4.3");
-            swordChargeEffect.GetComponent<ScaleParticleSystemDuration>().initialDuration = 1.5f;*/
-
-            ShakeEmitter shakeEmitter = bombExplosionEffect.AddComponent<ShakeEmitter>();
-            shakeEmitter.amplitudeTimeDecay = true;
-            shakeEmitter.duration = 0.5f;
-            shakeEmitter.radius = 200f;
-            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
-
-            shakeEmitter.wave = new Wave
-            {
-                amplitude = 1f,
-                frequency = 40f,
-                cycleOffset = 0f
-            };
-
-            shakeEmitter = bazookaExplosionEffect.AddComponent<ShakeEmitter>();
-            shakeEmitter.amplitudeTimeDecay = true;
-            shakeEmitter.duration = 0.4f;
-            shakeEmitter.radius = 100f;
-            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
-
-            shakeEmitter.wave = new Wave
-            {
-                amplitude = 1f,
-                frequency = 30f,
-                cycleOffset = 0f
-            };
-
-            swordSwingEffect = Assets.LoadEffect("ManipulatorSwordSwingEffect", true);
-            swordHitImpactEffect = Assets.LoadEffect("ImpactManipulatorSlash");
-
-            punchSwingEffect = Assets.LoadEffect("ManipulatorFistSwingEffect", true);
-            //punchImpactEffect = Assets.LoadEffect("ImpactManipulatorPunch");
-            // on second thought my effect sucks so imma just clone loader's
-            punchImpactEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXLoader"), "ImpactManipulatorPunch");
-            punchImpactEffect.AddComponent<NetworkIdentity>();
-
-            AddNewEffectDef(punchImpactEffect);
-            //EffectAPI.AddEffect(punchImpactEffect);
-
-            fistBarrageEffect = Assets.LoadEffect("FistBarrageEffect", true);
-            fistBarrageEffect.GetComponent<ParticleSystemRenderer>().material.shader = hotpoo;
-
-            bazookaCrosshair = PrefabAPI.InstantiateClone(LoadCrosshair("ToolbotGrenadeLauncher"), "ManipulatorBazookaCrosshair", false);
-            CrosshairController crosshair = bazookaCrosshair.GetComponent<CrosshairController>();
-            crosshair.skillStockSpriteDisplays = new CrosshairController.SkillStockSpriteDisplay[0];
-            bazookaCrosshair.transform.Find("StockCountHolder").gameObject.SetActive(false);
-            bazookaCrosshair.transform.Find("Image, Arrow (1)").gameObject.SetActive(true);
-            crosshair.spriteSpreadPositions[0].zeroPosition = new Vector3(32f, 34f, 0f);
-            crosshair.spriteSpreadPositions[2].zeroPosition = new Vector3(-32f, 34f, 0f);
-            bazookaCrosshair.transform.GetChild(1).gameObject.SetActive(false);
+            mageJetMat = GetMageJetMaterial();
 
             trackerPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/HuntressTrackingIndicator"), "ManipulatorTrackerPrefab", false);
             trackerPrefab.transform.Find("Core Pip").gameObject.GetComponent<SpriteRenderer>().color = Color.white;
@@ -163,57 +61,6 @@ namespace ManipulatorMod.Modules
                     i.color = Color.white;
                 }
             }
-
-            shotgunTracer = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoShotgun").InstantiateClone("ManipulatorBulletTracer", true);
-
-            if (!shotgunTracer.GetComponent<EffectComponent>()) shotgunTracer.AddComponent<EffectComponent>();
-            if (!shotgunTracer.GetComponent<VFXAttributes>()) shotgunTracer.AddComponent<VFXAttributes>();
-            if (!shotgunTracer.GetComponent<NetworkIdentity>()) shotgunTracer.AddComponent<NetworkIdentity>();
-
-            foreach (LineRenderer i in shotgunTracer.GetComponentsInChildren<LineRenderer>())
-            {
-                if (i)
-                {
-                    Material bulletMat = UnityEngine.Object.Instantiate<Material>(i.material);
-                    bulletMat.SetColor("_TintColor", new Color(0.68f, 0.58f, 0.05f));
-                    i.material = bulletMat;
-                    i.startColor = new Color(0.68f, 0.58f, 0.05f);
-                    i.endColor = new Color(0.68f, 0.58f, 0.05f);
-                }
-            }
-
-
-        AddNewEffectDef(shotgunTracer);
-            //EffectAPI.AddEffect(shotgunTracer);
-
-            /*Debug.LogWarning("20");
-            LineRenderer line = energyTracer.transform.Find("TracerHead").GetComponent<LineRenderer>();
-            Debug.LogWarning("201");
-            Material tracerMat = UnityEngine.Object.Instantiate<Material>(line.material);
-            Debug.LogWarning("202");
-            line.startWidth *= 0.25f;
-            Debug.LogWarning("203");
-            line.endWidth *= 0.25f;
-            Debug.LogWarning("204");
-            // this did not work.
-            //tracerMat.SetColor("_TintColor", new Color(78f / 255f, 80f / 255f, 111f / 255f));
-            line.material = tracerMat;*/
-        }
-
-        private static GameObject CreateTracer(string originalTracerName, string newTracerName)
-        {
-            GameObject newTracer = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/Tracers/" + originalTracerName), newTracerName, true);
-
-            if (!newTracer.GetComponent<EffectComponent>()) newTracer.AddComponent<EffectComponent>();
-            if (!newTracer.GetComponent<VFXAttributes>()) newTracer.AddComponent<VFXAttributes>();
-            if (!newTracer.GetComponent<NetworkIdentity>()) newTracer.AddComponent<NetworkIdentity>();
-
-            newTracer.GetComponent<Tracer>().speed = 250f;
-            newTracer.GetComponent<Tracer>().length = 50f;
-
-            AddNewEffectDef(newTracer);
-
-            return newTracer;
         }
 
         internal static NetworkSoundEventDef CreateNetworkSoundEventDef(string eventName)

@@ -60,11 +60,11 @@ namespace ManipulatorMod.Modules
             CreateIcePillar();
 
             Modules.Prefabs.projectilePrefabs.Add(waveFirePrefab);
-            //Modules.Prefabs.projectilePrefabs.Add(waveFirePrefabAlt);
+            Modules.Prefabs.projectilePrefabs.Add(waveFirePrefabAlt);
             Modules.Prefabs.projectilePrefabs.Add(waveIcePrefab);
-            //Modules.Prefabs.projectilePrefabs.Add(waveIcePrefabAlt);
+            Modules.Prefabs.projectilePrefabs.Add(waveIcePrefabAlt);
             Modules.Prefabs.projectilePrefabs.Add(waveLightningPrefab);
-            //Modules.Prefabs.projectilePrefabs.Add(waveLightningPrefabAlt);
+            Modules.Prefabs.projectilePrefabs.Add(waveLightningPrefabAlt);
             Modules.Prefabs.projectilePrefabs.Add(explosionFirePrefab);
             Modules.Prefabs.projectilePrefabs.Add(explosionLightningPrefab);
             Modules.Prefabs.projectilePrefabs.Add(explosionIcePrefab);
@@ -79,6 +79,11 @@ namespace ManipulatorMod.Modules
             GameObject newWavePrefab = CloneProjectilePrefab("Fireball", waveName);
             newWavePrefab.transform.localScale = new Vector3(1f, 1f, 1f);
             newWavePrefab.transform.localRotation = Quaternion.Euler(StatValues.waveRotation1);
+
+            //create 'container' to enable local rotation of the wave
+            GameObject transformBox = new GameObject("TransformBox");
+            transformBox.transform.parent = newWavePrefab.transform;
+            transformBox.layer = 14;
 
             //set ghost, damage and owner
             ProjectileController newWaveController = newWavePrefab.GetComponent<ProjectileController>();
@@ -102,26 +107,21 @@ namespace ManipulatorMod.Modules
             newWaveSimple.desiredForwardSpeed = StatValues.waveSpeed;
 
             //replace sphere with core box (smaller middle, collides with both terrain and enemies)
-            UnityEngine.Object.Destroy(newWavePrefab.GetComponent<SphereCollider>());
+            //UnityEngine.Object.Destroy(newWavePrefab.GetComponent<SphereCollider>());
             BoxCollider newWaveBox = newWavePrefab.AddComponent<BoxCollider>();
+            newWaveBox.transform.parent = transformBox.transform;
             newWaveBox.size = waveCoreSize;
 
             //add outer box collider (collides with enemies only)
             GameObject childObject = new GameObject("OuterBox");
             childObject.layer = 14;
-            childObject.transform.parent = newWavePrefab.gameObject.transform;
+            childObject.transform.parent = transformBox.transform;
             ManipulatorProjectileChildCollisionDetection childScript = childObject.AddComponent<ManipulatorProjectileChildCollisionDetection>();
             childScript.AddBoxCollider(waveOuterSize, childObject);
 
-            //Quaternion quaternion = Quaternion.Euler(rotation);
-            //newWavePrefab.transform.rotation = quaternion;
-            //newWaveController.ghostPrefab.transform.rotation = quaternion;
-            //newWaveController.ghostTransformAnchor.rotation = quaternion;
-            //newWaveController.ghostTransformAnchor = newWavePrefab.transform;
-
-            //create 'container' to enable local rotation of the wave
-            //GameObject transformBox = new GameObject();
-            //newWavePrefab.transform.parent = transformBox.transform;
+            //set local rotation
+            Quaternion quaternion = Quaternion.Euler(rotation);
+            transformBox.transform.localRotation = quaternion;
 
             //return result
             return newWavePrefab;
@@ -130,15 +130,15 @@ namespace ManipulatorMod.Modules
         private static void CreateWavesFire()
         {
             waveFirePrefab = CreateNewWave("ManipulatorWaveFireProjectile", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation1);
-            //waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation2);
+            waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
         }
 
         private static void CreateWavesLightning()
         {
             waveLightningPrefab = CreateNewWave("ManipulatorWaveLightningProjectile", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation1);
             AddLightningWave(waveLightningPrefab);
-            //waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation2);
-            //AddLightningWave(waveLightningPrefabAlt);
+            waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
+            AddLightningWave(waveLightningPrefabAlt);
         }
 
         private static void AddLightningWave(GameObject wavePrefab)
@@ -174,7 +174,7 @@ namespace ManipulatorMod.Modules
         private static void CreateWavesIce()
         {
             waveIcePrefab = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.SlowOnHit, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation1);
-            //waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.SlowOnHit, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation2);
+            waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.SlowOnHit, "ManipulatorGhostIceWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
         }
 
         private static GameObject CreateBlinkExplosion(string newExplosionName, float newExplosionDelay, float newBlastRadius, float newBlastDamage, DamageType damageType)

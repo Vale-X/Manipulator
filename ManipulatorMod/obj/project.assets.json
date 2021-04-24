@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\ManipulatorMod-master\\ManipulatorMod\\ManipulatorMod.csproj",
+      "projectUniqueName": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\Manipulator\\ManipulatorMod\\ManipulatorMod.csproj",
       "projectName": "ManipulatorMod",
-      "projectPath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\ManipulatorMod-master\\ManipulatorMod\\ManipulatorMod.csproj",
+      "projectPath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\Manipulator\\ManipulatorMod\\ManipulatorMod.csproj",
       "packagesPath": "C:\\Users\\Kyle\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\ManipulatorMod-master\\ManipulatorMod\\obj\\",
+      "outputPath": "D:\\Users\\Kyle\\Documents\\RoR2Modding\\0Modding\\CustomMods\\Manipulator\\ManipulatorMod\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kyle\\AppData\\Roaming\\NuGet\\NuGet.Config",

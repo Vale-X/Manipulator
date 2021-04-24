@@ -26,7 +26,7 @@ namespace ManipulatorMod.Modules.Components
 				return;
 			}
 			Collider collider = impactInfo.collider;
-			hitEnemeyObject = impactInfo.collider.gameObject;
+			this.hitEnemeyObject = impactInfo.collider.gameObject;
 			if (collider)
 			{
 				DamageInfo damageInfo = new DamageInfo();
@@ -59,7 +59,7 @@ namespace ManipulatorMod.Modules.Components
 						}
 						if (FriendlyFireManager.ShouldDirectHitProceed(healthComponent, this.projectileController.teamFilter.teamIndex))
 						{
-							Util.PlaySound(this.enemyHitSoundString, base.gameObject);
+							Util.PlaySound(this.enemyHitSoundString, this.gameObject);
 							if (NetworkServer.active)
 							{
 								damageInfo.ModifyDamageInfo(component.damageModifier);
@@ -92,25 +92,25 @@ namespace ManipulatorMod.Modules.Components
 			{
 				if (NetworkServer.active && this.impactEffect)
 				{
-					EffectManager.SimpleImpactEffect(this.impactEffect, impactInfo.estimatedPointOfImpact, -base.transform.forward, !this.projectileController.isPrediction);
+					EffectManager.SimpleImpactEffect(this.impactEffect, impactInfo.estimatedPointOfImpact, -this.transform.forward, !this.projectileController.isPrediction);
 				}
-				Util.PlaySound(this.hitSoundString, base.gameObject);
+				Util.PlaySound(this.hitSoundString, this.gameObject);
 				if (this.destroyWhenNotAlive)
 				{
-					UnityEngine.Object.Destroy(base.gameObject);
+					UnityEngine.Object.Destroy(this.gameObject);
 				}
 				else
                 {
 					if (impactInfo.collider.GetComponent<HurtBox>() && !hasKilled)
                     {
 						//Debug.LogWarning("set FireSpell to inactive");
-						base.gameObject.SetActive(false);
-						ownerController.ghostPrefab.SetActive(false);
+						this.gameObject.SetActive(false);
+						this.ownerController.ghostPrefab.SetActive(false);
 					}
 					else 
                     {
 							//Debug.LogWarning("Destroyed FireSpell");
-							UnityEngine.Object.Destroy(base.gameObject);
+							UnityEngine.Object.Destroy(this.gameObject);
 					}
                 }
 			}

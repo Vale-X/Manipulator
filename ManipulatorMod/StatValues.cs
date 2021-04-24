@@ -11,7 +11,7 @@ namespace ManipulatorMod
         //developer info
         public const string MODUID = "com.valex.ManipulatorMod";
         public const string MODNAME = "ManipulatorMod";
-        public const string MODVERSION = "0.3.0";
+        public const string MODVERSION = "0.3.1";
 
         //character info
         public const string characterName = "Manipulator";
@@ -20,7 +20,12 @@ namespace ManipulatorMod
         public const string characterOutroFaliure = "..and so he vanished, oof.";
         public const string characterLore = "\n_temp";
 
-        internal static readonly Color manipulatorColor = new Color(0.6352941f, 0.7450981f, 0.8392157f, 1f);
+        //color for use in UI
+        internal static readonly Color manipulatorColor = new Color(0.635294f, 0.745098f, 0.839215f, 1f);
+        internal static readonly Color iconColor1 = new Color(0.858823f, 0.862745f, 0.858823f, 1f);
+        internal static readonly Color iconColor2 = new Color(0.698039f, 0.705882f, 0.776470f, 1f);
+        internal static readonly Color iconColor3 = new Color(0.549019f, 0.556862f, 0.321568f, 1f);
+        internal static readonly Color iconColor4 = new Color(0.341176f, 0.368627f, 0.458823f, 1f);
 
         //Base stats
         public const float baseHealth = 90f;
@@ -59,7 +64,7 @@ namespace ManipulatorMod
         public const float waveForce = 10f;
         public const float waveLifetime = 1f;
         public const float waveSpeed = 100f;
-        public const float waveFireTime = 0.05f;
+        public const float waveFireTime = 0.025f;
         public const float waveProcCoefficient = 1f;
         public static readonly Vector3 waveOuterSize = new Vector3(3.5f, 0.5f, 1.5f);
         public static readonly Vector3 waveCoreSize = new Vector3(0.1f, 0.1f, 1.6f);
@@ -72,6 +77,8 @@ namespace ManipulatorMod
         public const float lightningBlastCoefficient = 1f;
 
         //Secondary
+        public const float spellCooldown = 6f;
+
         public const float fireSpellCoefficient = 6f;
         public const float fireSpellProc = 1f;
         public const float fireSpellForce = 10f;
@@ -97,8 +104,10 @@ namespace ManipulatorMod
         public static Vector3 icePillarBlastForce = new Vector3(0f, 0f, 0f);
 
         //Utility
+        public const float blinkCooldown = 6f;
+
         public const float explosionDamage = 3f;
-        public const float explosionRadius = 10f;
+        public const float explosionRadius = 5f;
         public const float explosionDelay = 0.5f;
         public const float blinkSpeed = 8f;
         public const float blinkDuration = 0.3f;
@@ -108,6 +117,7 @@ namespace ManipulatorMod
         public const float blinkLightningDelay = 0.2f;
 
         //Special
+        public const float switchCooldown = 6f;
         public const float castDuration = 0.1f;
         public const float buffDuration = 6f;
 

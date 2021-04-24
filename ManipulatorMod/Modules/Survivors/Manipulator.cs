@@ -4,6 +4,7 @@ using RoR2.Skills;
 using System.Collections.Generic;
 using UnityEngine;
 using ManipulatorMod.Modules.Misc;
+using R2API;
 
 namespace ManipulatorMod.Modules.Survivors
 {
@@ -28,13 +29,6 @@ namespace ManipulatorMod.Modules.Survivors
         public static SkillDef secondarySkill;
         public static SkillDef utilitySkill;
         public static SkillDef specialSkill;*/
-
-        // bazooka skill overrides
-        internal static SkillDef bazookaFireSkillDef;
-        internal static SkillDef bazookaCancelSkillDef;
-
-        internal static SkillDef bazookaFireSkillDefScepter;
-        internal static SkillDef bazookaCancelSkillDefScepter;
 
         // unlockabledefs
         internal static UnlockableDef characterUnlockableDef;
@@ -109,12 +103,12 @@ namespace ManipulatorMod.Modules.Survivors
                 Modules.Prefabs.SetupCharacterModel(characterPrefab, new CustomRendererInfo[] {
                 new CustomRendererInfo
                 {
-                    childName = "ManiBelt",
+                    childName = "BeltModel",
                     material = manipulatorNewMat,
                 },
                 new CustomRendererInfo
                 {
-                    childName = "ManiSword",
+                    childName = "SwordModel",
                     material = manipulatorNewMat,
                 },
                 new CustomRendererInfo
@@ -129,61 +123,9 @@ namespace ManipulatorMod.Modules.Survivors
                 },
                 new CustomRendererInfo
                 {
-                    childName = "ManiBody",
+                    childName = "Model",
                     material = manipulatorNewMat,
                 }}, bodyRendererIndex);
-                
-               /* Modules.Prefabs.SetupCharacterModel(characterPrefab, new CustomRendererInfo[] {
-                new CustomRendererInfo
-                {
-                    childName = "SwordModel",
-                    material = manipulatorMat,
-                },
-                new CustomRendererInfo
-                {
-                    childName = "GunModel",
-                    material = manipulatorMat,
-                },
-                new CustomRendererInfo
-                {
-                    childName = "BoxingGloveL",
-                    material = boxingGloveMat,
-                },
-                new CustomRendererInfo
-                {
-                    childName = "BoxingGloveR",
-                    material = boxingGloveMat,
-                },
-                new CustomRendererInfo
-                {
-                    childName = "CoatModel",
-                    material = Modules.Assets.CreateMaterial("matVergil"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "BazookaModel",
-                    material = Modules.Assets.CreateMaterial("matBazooka"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "BazookaModelScepter",
-                    material = Modules.Assets.CreateMaterial("matBazooka"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "AltGunModel",
-                    material = Modules.Assets.CreateMaterial("matManipulatorJedi"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "ShotgunModel",
-                    material = Modules.Assets.CreateMaterial("matShotgun"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "Model",
-                    material = manipulatorMat
-                }}, bodyRendererIndex);*/
                 #endregion
 
                 displayPrefab = Modules.Prefabs.CreateDisplayPrefab("ManipulatorNewDisplay", characterPrefab);
@@ -194,21 +136,12 @@ namespace ManipulatorMod.Modules.Survivors
                 CreateHitboxes();
                 CreateSkills();
                 CreateSkins();
-                InitializeItemDisplays();
+                //InitializeItemDisplays();
                 CreateDoppelganger();
 
                 //if (ManipulatorPlugin.scepterInstalled) CreateScepterSkills();
             }
         }
-
-        /*static void SetupTracker()
-        {
-            HuntressTracker huntressTracker = characterPrefab.AddComponent<HuntressTracker>();
-            huntressTracker.maxTrackingDistance = 60f;
-            huntressTracker.maxTrackingAngle = 30f;
-            huntressTracker.trackerUpdateFrequency = 10;
-            huntressTracker.enabled = false;
-        }*/
 
         public static void ResetIcons()
         {
@@ -247,8 +180,6 @@ namespace ManipulatorMod.Modules.Survivors
             Transform hitboxTransform = childLocator.FindChild("SwordHitbox");
             Modules.Prefabs.SetupHitbox(model, hitboxTransform, "Sword");
 
-            /*hitboxTransform = childLocator.FindChild("PunchHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform, "Punch");*/
         }
 
         private static void CreateSkills()
@@ -302,7 +233,7 @@ namespace ManipulatorMod.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElementalSpellState)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 6f,
+                baseRechargeInterval = StatValues.spellCooldown,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -334,7 +265,7 @@ namespace ManipulatorMod.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElementalBlinkState)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 8f,
+                baseRechargeInterval = StatValues.blinkCooldown,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = true,
@@ -366,7 +297,7 @@ namespace ManipulatorMod.Modules.Survivors
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElementalSwitchState)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 6f,
+                baseRechargeInterval = StatValues.switchCooldown,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -596,21 +527,21 @@ namespace ManipulatorMod.Modules.Survivors
 
             #region DefaultSkin
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(ManipulatorPlugin.developerPrefix + "_MANIPULATOR_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"),
+                Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texMainIcon"),
                 defaultRenderers,
                 mainRenderer,
-                model);
+                model); //LoadoutAPI.CreateSkinIcon(StatValues.iconColor1, StatValues.iconColor2, StatValues.iconColor3, StatValues.iconColor4)
 
             defaultSkin.meshReplacements = new SkinDef.MeshReplacement[]
             {
                 new SkinDef.MeshReplacement
                 {
-                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulatorBeltNew"),
+                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulatorBelt"),
                     renderer = defaultRenderers[0].renderer
                 },
                 new SkinDef.MeshReplacement
                 {
-                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulatorSwordNew"),
+                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulatorSword"),
                     renderer = defaultRenderers[1].renderer
                 },
                 new SkinDef.MeshReplacement
@@ -625,7 +556,7 @@ namespace ManipulatorMod.Modules.Survivors
                 },
                 new SkinDef.MeshReplacement
                 {
-                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulatorNew"),
+                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("meshManipulator"),
                     renderer = defaultRenderers[bodyRendererIndex].renderer
                 }
             };
@@ -647,8 +578,9 @@ namespace ManipulatorMod.Modules.Survivors
             skins.Add(defaultSkin);
             #endregion
 
-            /*#region MasterySkin
-            Material masteryMat = Modules.Assets.CreateMaterial("matManipulatorAlt");
+
+            #region MasterySkin
+            /*Material masteryMat = Modules.Assets.CreateMaterial("matManipulatorAlt");
             CharacterModel.RendererInfo[] masteryRendererInfos = SkinRendererInfos(defaultRenderers, new Material[]
             {
                 masteryMat,
@@ -748,8 +680,8 @@ namespace ManipulatorMod.Modules.Survivors
                 };
 
                 //skins.Add(grandMasterySkin);
-            }
-            #endregion*/
+            }*/
+            #endregion
 
             skinController.skins = skins.ToArray();
         }

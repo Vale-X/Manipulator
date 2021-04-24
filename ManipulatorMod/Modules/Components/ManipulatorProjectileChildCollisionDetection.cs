@@ -33,7 +33,7 @@ namespace ManipulatorMod.Modules.Components
 
         void OnTriggerEnter(Collider other)
         {
-            ManipulatorProjectileWaveImpact parentScript = this.transform.parent.gameObject.GetComponent<ManipulatorProjectileWaveImpact>();
+            ManipulatorProjectileWaveImpact parentScript = this.transform.parent.gameObject.transform.parent.GetComponent<ManipulatorProjectileWaveImpact>();
             parentScript.OnChildImpact(other);
             //Debug.LogWarning("OuterHit");
         }

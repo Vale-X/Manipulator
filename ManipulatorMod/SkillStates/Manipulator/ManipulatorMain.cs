@@ -73,78 +73,6 @@ namespace ManipulatorMod.SkillStates
             }
         }
 
-        /*public void SetElementSkillIcons(ManipulatorElement2 newElement)
-        {
-            foreach (GenericSkill i in skillLocator.allSkills)
-            {
-                if (i.skillDef is SkillDefElement tempElement)
-                {
-                    tempElement.SwitchElementIcon(newElement);
-                    Debug.LogWarning($"skillDef: {i.skillDef}");
-                    Debug.LogWarning($"skillName: {i.skillDef.skillName}");
-                    Debug.LogWarning($"skillNameToken: {i.skillDef.skillNameToken}");
-                    Debug.LogWarning($"activationState: {i.skillDef.activationState}");
-                    Debug.LogWarning($"skillIndex: {i.skillDef.skillIndex}");
-                }
-            }
-        }
-
-        public void ResetIcons()
-        {
-            if (locatorRef)
-            {
-                gotStartingElement = false;
-                Debug.LogWarning("Icons Reset");
-                //locatorRef.primary.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIconDef");
-                //locatorRef.secondary.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSecondaryIconDef");
-                //locatorRef.utility.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texUtilityIconDef");
-                //locatorRef.special.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIconDef");
-                SetElementSkillIcons(ManipulatorElement2.None);
-            }
-        }
-
-        private ManipulatorElement2 GetStartingElement()
-        {
-            ManipulatorElementController elementController = base.characterBody.GetComponent<ManipulatorElementController>();
-            switch (elementController.elementSkill.skillDef.skillName)
-            {
-                case "VALE_MANIPULATOR_BODY_ELEMENT_FIRE_NAME":
-                    return ManipulatorElement2.Fire;
-                case "VALE_MANIPULATOR_BODY_ELEMENT_LIGHTNING_NAME":
-                    return ManipulatorElement2.Lightning;
-                case "VALE_MANIPULATOR_BODY_ELEMENT_ICE_NAME":
-                    return ManipulatorElement2.Ice;
-                default:
-                    return ManipulatorElement2.Fire;
-            }
-
-        }*/
-
-        /*public static void ElementalBonus()
-        {
-            switch (ManipulatorMain.CurrentElement)
-            {
-                case ManipulatorMain.ManipulatorElement.Fire:
-                    //Fire Bonus
-                    base.characterBody.AddTimedBuff(Modules.Buffs.fireBonusBuff, buffDuration);
-                    //fireBonus = true;
-                    //fireTimer = 0f;
-                    break;
-                case ManipulatorMain.ManipulatorElement.Lightning:
-                    base.characterBody.AddTimedBuff(Modules.Buffs.lightningBonusBuff, buffDuration);
-                    //Lightning Bonus
-                    //lightningBonus = true;
-                    //lightningTimer = 0f;
-                    break;
-                case ManipulatorMain.ManipulatorElement.Ice:
-                    base.characterBody.AddTimedBuff(Modules.Buffs.iceBonusBuff, buffDuration);
-                    //Ice bonus
-                    //iceBonus = true;
-                    //iceTimer = 0f;
-                    break;
-            }
-        }*/
-
         public override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -154,38 +82,11 @@ namespace ManipulatorMod.SkillStates
                 float i = 1;
                 if (this.animator.GetBool("isGrounded")) i = 0;
                 this.animator.SetFloat("inAir", i);
-            }
 
-            //Debug.LogWarning($"StateMachine: {this.stateMachine}");
-            //Debug.LogWarning($"State: {this.stateMachine.state}");
+                this.animator.SetBool("inCombat", (!base.characterBody.outOfCombat || !base.characterBody.outOfDanger));
 
-            /*if (fireBonus)
-            {
-                fireTimer += Time.deltaTime;
-                if (fireTimer >= bonusDuration)
-                {
-                    fireBonus = false;
-                    fireTimer = 0f;
-                }
+                this.animator.SetBool("useAdditive", (i == 1 && !this.animator.GetBool("isSprinting")));
             }
-            if (lightningBonus)
-            {
-                lightningTimer += Time.deltaTime;
-                if (lightningTimer >= bonusDuration)
-                {
-                    lightningBonus = false;
-                    lightningTimer = 0f;
-                }
-            }
-            if (iceBonus)
-            {
-                iceTimer += Time.deltaTime;
-                if (iceTimer >= bonusDuration)
-                {
-                    iceBonus = false;
-                    iceTimer = 0f;
-                }
-            }*/
         }
     }
 }

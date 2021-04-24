@@ -98,7 +98,7 @@ namespace ManipulatorMod.SkillStates
                 this.childLocator = this.modelTransform.GetComponent<ChildLocator>();
                 if (this.childLocator)
                 {
-                    Transform transform = this.childLocator.FindChild("HandR");
+                    Transform transform = this.childLocator.FindChild("RightHand");
                     if (transform && ElementalSpellState.chargePrefab)
                     {
                         this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(ElementalSpellState.chargePrefab, transform.position, transform.rotation);
@@ -296,7 +296,7 @@ namespace ManipulatorMod.SkillStates
             if (hurtBox)
             {
                 this.hasSuccessfullyCastLightning = true;
-                Transform transform = this.childLocator.FindChild("HandL");
+                Transform transform = this.childLocator.FindChild("LeftHand");
                 //EffectManager.SimpleMuzzleFlash(ElementalSpellState.muzzleFlashPrefab, base.gameObject, "HandL", true);
                 lightningOrb.origin = transform.position;
                 lightningOrb.target = hurtBox;
