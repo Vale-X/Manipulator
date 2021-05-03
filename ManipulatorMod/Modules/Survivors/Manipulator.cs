@@ -13,10 +13,13 @@ namespace ManipulatorMod.Modules.Survivors
         internal static GameObject characterPrefab;
         internal static GameObject displayPrefab;
 
-        internal static ConfigEntry<bool> characterEnabled;
+        internal static Material manipulatorMatFire;
+        internal static Material manipulatorMatLightning;
+        internal static Material manipulatorMatIce;
 
         public const string bodyName = "ValeManipulatorBody";
 
+        public static int swordRendererIndex;
         public static int bodyRendererIndex; // use this to store the rendererinfo index containing our character's body
                                              // keep it last in the rendererinfos because teleporter particles for some reason require this. hopoo pls
 
@@ -49,10 +52,7 @@ namespace ManipulatorMod.Modules.Survivors
 
         internal static void CreateCharacter()
         {
-            // this creates a config option to enable the character- feel free to remove if the character is the only thing in your mod
-            characterEnabled = Modules.Config.CharacterEnableConfig("Manipulator");
-
-            if (characterEnabled.Value)
+            if (Modules.Config.characterEnabled.Value)
             {
                 //CreateUnlockables();
 
@@ -93,23 +93,27 @@ namespace ManipulatorMod.Modules.Survivors
 
                 #region Model
 
-                Material manipulatorNewMat = Modules.Assets.CreateMaterial("matManipulatorNew", new Color(0.6544118f, 0.6544118f, 0.6544118f), 1f, new Color(0.9255f, 0.5059f, 0.1333f), 0f);
+                //Material manipulatorMat = Modules.Assets.CreateMaterial("matManipulatorNew", new Color(0.6544118f, 0.6544118f, 0.6544118f), 1f, StatValues.fireColor, 0f);
+                manipulatorMatFire = Modules.Assets.CreateMaterial("matManipulatorNew", new Color(0.6544118f, 0.6544118f, 0.6544118f), 1f, StatValues.fireColor, 0f);
+                manipulatorMatLightning = Modules.Assets.CreateMaterial("matManipulatorNew", new Color(0.6544118f, 0.6544118f, 0.6544118f), 1f, StatValues.lightningColor, 0f);
+                manipulatorMatIce = Modules.Assets.CreateMaterial("matManipulatorNew", new Color(0.6544118f, 0.6544118f, 0.6544118f), 1f, StatValues.iceColor, 0f);
                 Material manipulatorJetMat = Modules.Assets.mageJetMat;
                 //Material manipulatorMat = Modules.Assets.CreateMaterial("matManipulator"); // cache these as there's no reason to create more when they're all the same
                 //Material boxingGloveMat = Modules.Assets.CreateMaterial("matBoxingGlove");
 
                 bodyRendererIndex = 4;
+                swordRendererIndex = 1;
 
                 Modules.Prefabs.SetupCharacterModel(characterPrefab, new CustomRendererInfo[] {
                 new CustomRendererInfo
                 {
                     childName = "BeltModel",
-                    material = manipulatorNewMat,
+                    material = manipulatorMatFire,
                 },
                 new CustomRendererInfo
                 {
                     childName = "SwordModel",
-                    material = manipulatorNewMat,
+                    material = manipulatorMatFire,
                 },
                 new CustomRendererInfo
                 {
@@ -124,7 +128,7 @@ namespace ManipulatorMod.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "Model",
-                    material = manipulatorNewMat,
+                    material = manipulatorMatFire,
                 }}, bodyRendererIndex);
                 #endregion
 
@@ -138,6 +142,8 @@ namespace ManipulatorMod.Modules.Survivors
                 CreateSkins();
                 //InitializeItemDisplays();
                 CreateDoppelganger();
+                CreateStateMachines();
+                CreateJetEffect();
 
                 //if (ManipulatorPlugin.scepterInstalled) CreateScepterSkills();
             }
@@ -153,6 +159,44 @@ namespace ManipulatorMod.Modules.Survivors
                     //Debug.LogWarning($"reset icon for {tempElement.skillName}");
                 }
             }
+        }
+
+        private static void CreateJetEffect()
+        {
+            GameObject jetEffect = Modules.Assets.mageJetEffect;
+            //Debug.LogWarning(jetEffect);
+
+            ChildLocator childLocator = characterPrefab.GetComponentInChildren<ChildLocator>();
+            //Debug.LogWarning(childLocator);
+
+            Transform holder = childLocator.FindChild("JetHolder");
+            //Debug.LogWarning(holder);
+            jetEffect.transform.parent = holder;
+            jetEffect.transform.localPosition = new Vector3(0.4f, -0.25f, 0f);
+            jetEffect.transform.localRotation = Quaternion.Euler(11, 90, 90);
+            jetEffect.transform.localScale = new Vector3(0.02f, 0.02f, 0.5f);
+
+            Vector3 tempSize = new Vector3(1.2f, 1.2f, 3f);
+            Transform jetL = jetEffect.transform.Find("JetsL");
+            jetL.transform.localScale = tempSize;
+            Transform jetR = jetEffect.transform.Find("JetsR");
+            jetR.transform.localScale = tempSize;
+
+            Transform light = jetEffect.transform.Find("Point Light");
+            light.transform.localPosition = new Vector3(0f, 0f, 0.2f);
+            Light lightEffect = light.GetComponent<Light>();
+            lightEffect.range = 1.5f;
+            lightEffect.intensity = 10f;
+
+        }
+
+        public static void CreateStateMachines()
+        {
+            EntityStateMachine jetState = characterPrefab.AddComponent<EntityStateMachine>();
+            jetState.customName = "Jet";
+            jetState.initialStateType = new EntityStates.SerializableEntityStateType(typeof(EntityStates.Idle));
+            jetState.mainStateType = new EntityStates.SerializableEntityStateType(typeof(EntityStates.Idle));
+
         }
 
         /*private static void CreateUnlockables()
@@ -188,8 +232,18 @@ namespace ManipulatorMod.Modules.Survivors
 
             string prefix = ManipulatorPlugin.developerPrefix;
 
+            #region Passive
+            Modules.Skills.AddPassiveSkill(characterPrefab, new PassiveSkillDefInfo
+            {
+                icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIconDef"),
+                skillNameToken = prefix + "_MANIPULATOR_BODY_PASSIVE_NAME",
+                skillDescriptionToken = prefix + "_MANIPULATOR_BODY_PASSIVE_DESCRIPTION",
+                keywordToken = null
+            });
+            #endregion
+
             #region Primary
-            SkillDefElement crossSkillDef = Modules.Skills.CreateElementSkillDef(new SkillDefElementInfo
+            SkillDefElement crossSkillDef = Modules.Skills.CreateElementSkillDef(new ElementSkillDefInfo
             {
                 skillName = prefix + "_MANIPULATOR_BODY_PRIMARY_SLASH_NAME",
                 skillNameToken = prefix + "_MANIPULATOR_BODY_PRIMARY_SLASH_NAME",
@@ -203,14 +257,14 @@ namespace ManipulatorMod.Modules.Survivors
                 baseMaxStock = 1,
                 baseRechargeInterval = 0,
                 beginSkillCooldownOnSkillEnd = false,
-                canceledFromSprinting = true,
+                canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
                 interruptPriority = EntityStates.InterruptPriority.Any,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
-                cancelSprintingOnActivation = true,
+                cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 0,
                 stockToConsume = 0,
@@ -221,7 +275,7 @@ namespace ManipulatorMod.Modules.Survivors
             #endregion
 
             #region Secondary
-            SkillDefElement spellSkillDef = Modules.Skills.CreateElementSkillDef(new SkillDefElementInfo
+            SkillDefElement spellSkillDef = Modules.Skills.CreateElementSkillDef(new ElementSkillDefInfo
             {
                 skillName = prefix + "_MANIPULATOR_BODY_SECONDARY_SPELL_NAME",
                 skillNameToken = prefix + "_MANIPULATOR_BODY_SECONDARY_SPELL_NAME",
@@ -253,7 +307,7 @@ namespace ManipulatorMod.Modules.Survivors
             #endregion
 
             #region Utility
-            SkillDefElement ventSkillDef = Modules.Skills.CreateElementSkillDef(new SkillDefElementInfo
+            SkillDefElement ventSkillDef = Modules.Skills.CreateElementSkillDef(new ElementSkillDefInfo
             {
                 skillName = prefix + "_MANIPULATOR_BODY_UTILITY_VENT_NAME",
                 skillNameToken = prefix + "_MANIPULATOR_BODY_UTILITY_VENT_NAME",
@@ -285,7 +339,7 @@ namespace ManipulatorMod.Modules.Survivors
             #endregion
 
             #region Special
-            SkillDefElement switchSkillDef = Modules.Skills.CreateElementSkillDef(new SkillDefElementInfo
+            SkillDefElement switchSkillDef = Modules.Skills.CreateElementSkillDef(new ElementSkillDefInfo
             {
                 skillName = prefix + "_MANIPULATOR_BODY_SPECIAL_SWITCH_NAME",
                 skillNameToken = prefix + "_MANIPULATOR_BODY_SPECIAL_SWITCH_NAME",

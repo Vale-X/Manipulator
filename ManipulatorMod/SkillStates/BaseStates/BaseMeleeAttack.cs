@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿using System.Collections.Generic;
+using EntityStates;
 using RoR2;
 using RoR2.Audio;
 using System;
@@ -45,6 +46,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
         protected Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
         private Vector3 storedVelocity;
+
 
         public override void OnEnter()
         {
@@ -101,7 +103,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
             //EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
         }
 
-        protected virtual void OnHitEnemyAuthority()
+        protected virtual void OnHitEnemyAuthority(List<HealthComponent> healthList)
         {
             Util.PlaySound(this.hitSoundString, base.gameObject);
 
@@ -142,9 +144,43 @@ namespace ManipulatorMod.SkillStates.BaseStates
             {
                 if (this.attack.Fire())
                 {
-                    this.OnHitEnemyAuthority();
+                    this.OnHitEnemyAuthority(this.GetHitHealth());
                 }
             }
+        }
+
+        private List<HealthComponent> GetHitHealth(List<HurtBox> hitResults = null)
+        {
+            List<HealthComponent> healthList = new List<HealthComponent>();
+            HitBox[] hitBoxes = this.attack.hitBoxGroup.hitBoxes;
+            for (int i = 0; i < hitBoxes.Length; i++)
+            {
+                Transform transform = hitBoxes[i].transform;
+                Vector3 position = transform.position;
+                Vector3 vector = transform.lossyScale * 0.5f;
+                Quaternion rotation = transform.rotation;
+                Collider[] array = Physics.OverlapBox(position, vector, rotation, LayerIndex.entityPrecise.mask);
+                int num = array.Length;
+                int num2 = 0;
+                for (int j = 0; j < num; j++)
+                {
+                    HurtBox component = array[j].GetComponent<HurtBox>();
+                    if (component && !healthList.Contains(component.healthComponent) && this.HurtBoxPassesFilter(component))
+                    {
+                            healthList.Add(component.healthComponent);
+                    }
+                    if (num2 >= this.attack.maximumOverlapTargets)
+                    {
+                        break;
+                    }
+                }
+            }
+            return healthList;
+        }
+
+        private bool HurtBoxPassesFilter(HurtBox hurtBox)
+        {
+            return !hurtBox.healthComponent || ((!(hurtBox.healthComponent.gameObject == this.attack.attacker) || this.attack.attackerFiltering != AttackerFiltering.NeverHit) && (!(this.attack.attacker == null) || !(hurtBox.healthComponent.gameObject.GetComponent<MaulingRock>() != null)) && FriendlyFireManager.ShouldDirectHitProceed(hurtBox.healthComponent, this.attack.teamIndex));
         }
 
         protected virtual void SetNextState()

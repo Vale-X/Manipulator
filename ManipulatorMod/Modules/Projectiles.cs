@@ -73,7 +73,7 @@ namespace ManipulatorMod.Modules
             //Modules.Prefabs.projectilePrefabs.Add(prefabNameHERE);
         }
 
-        private static GameObject CreateNewWave(string waveName, DamageType damageType, string ghostPrefabName, Vector3 waveCoreSize, Vector3 waveOuterSize, Vector3 rotation)
+        private static GameObject CreateNewWave(string waveName, DamageType damageType, string ghostPrefabName, Vector3 waveCoreSize, Vector3 waveOuterSize, Vector3 rotation, bool useIceDebuff)
         {
             //clone fire projectile, fix size (original size is 0.05, 0.05, 1)
             GameObject newWavePrefab = CloneProjectilePrefab("Fireball", waveName);
@@ -100,6 +100,7 @@ namespace ManipulatorMod.Modules
             ManipulatorProjectileWaveImpact newWaveImpact = newWavePrefab.AddComponent<ManipulatorProjectileWaveImpact>();
             newWaveImpact.destroyOnWorld = true;
             newWaveImpact.destroyWhenNotAlive = true;
+            newWaveImpact.useIceDebuff = useIceDebuff;
 
             ProjectileSimple newWaveSimple = newWavePrefab.GetComponent<ProjectileSimple>();
             newWaveSimple.lifetime = StatValues.waveLifetime;
@@ -129,15 +130,15 @@ namespace ManipulatorMod.Modules
 
         private static void CreateWavesFire()
         {
-            waveFirePrefab = CreateNewWave("ManipulatorWaveFireProjectile", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation1);
-            waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
+            waveFirePrefab = CreateNewWave("ManipulatorWaveFireProjectile", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation1, false);
+            waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false);
         }
 
         private static void CreateWavesLightning()
         {
-            waveLightningPrefab = CreateNewWave("ManipulatorWaveLightningProjectile", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation1);
+            waveLightningPrefab = CreateNewWave("ManipulatorWaveLightningProjectile", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation1, false);
             AddLightningWave(waveLightningPrefab);
-            waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
+            waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false);
             AddLightningWave(waveLightningPrefabAlt);
         }
 
@@ -148,7 +149,7 @@ namespace ManipulatorMod.Modules
             lightningWaveChild.fireChildren = true;
             lightningWaveChild.childrenCount = 1;
             lightningWaveChild.impactEffect = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/OmniExplosionVFXQuick");
-            lightningWaveChild.childrenDamageCoefficient = 0.5f;
+            lightningWaveChild.childrenDamageCoefficient = 1f;
         }
 
         private static GameObject CreateLightningWaveExplosion(float blastRadius, float blastDelay)
@@ -173,11 +174,11 @@ namespace ManipulatorMod.Modules
 
         private static void CreateWavesIce()
         {
-            waveIcePrefab = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.SlowOnHit, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation1);
-            waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.SlowOnHit, "ManipulatorGhostIceWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2);
+            waveIcePrefab = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation1, true);
+            waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, true);
         }
 
-        private static GameObject CreateBlinkExplosion(string newExplosionName, float newExplosionDelay, float newBlastRadius, float newBlastDamage, DamageType damageType)
+        private static GameObject CreateBlinkExplosion(string newExplosionName, float newExplosionDelay, float newBlastRadius, float newBlastDamage, DamageType damageType, bool iceBuff)
         {
             GameObject newBlinkPrefab = CloneProjectilePrefab("CommandoGrenadeProjectile", newExplosionName);
             UnityEngine.GameObject.Destroy(newBlinkPrefab.GetComponent<ProjectileImpactExplosion>());
@@ -192,6 +193,7 @@ namespace ManipulatorMod.Modules
             newBlinkExplosion.timerAfterImpact = false;
             newBlinkExplosion.blastRadius = newBlastRadius;
             newBlinkExplosion.blastDamageCoefficient = newBlastDamage;
+            newBlinkExplosion.useIceDebuff = iceBuff;
 
             return newBlinkPrefab;
 
@@ -199,12 +201,12 @@ namespace ManipulatorMod.Modules
 
         private static void CreateFireExplosion()
         {
-            explosionFirePrefab = CreateBlinkExplosion("ManipulatorFireBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.IgniteOnHit);
+            explosionFirePrefab = CreateBlinkExplosion("ManipulatorFireBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.IgniteOnHit, false);
         }
 
         private static void CreateLightningExplosion()
         {
-            explosionLightningPrefab = CreateBlinkExplosion("ManipulatorLightningBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.Generic);
+            explosionLightningPrefab = CreateBlinkExplosion("ManipulatorLightningBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.Generic, false);
 
             ProjectileBlinkExplosion lightningWaveChild = explosionLightningPrefab.GetComponent<ProjectileBlinkExplosion>();
             lightningWaveChild.childrenProjectilePrefab = CreateLightningWaveExplosion(StatValues.blinkLightningRadius, StatValues.blinkLightningDelay);
@@ -216,7 +218,7 @@ namespace ManipulatorMod.Modules
 
         private static void CreateIceExplosion()
         {
-            explosionIcePrefab = CreateBlinkExplosion("ManipulatorIceBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.SlowOnHit);
+            explosionIcePrefab = CreateBlinkExplosion("ManipulatorIceBlink", explosionDelay, explosionBlastRadius, explosionDamage, DamageType.Generic, true);
         }
 
         private static void CreateFireSpellRing()

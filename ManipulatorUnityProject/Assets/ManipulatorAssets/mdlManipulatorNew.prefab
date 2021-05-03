@@ -259,6 +259,36 @@ Transform:
   m_Father: {fileID: 3533567920050872311}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -18, y: -30, z: 210}
+--- !u!1 &2557289565010884624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7600958914714288649}
+  m_Layer: 0
+  m_Name: JetHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7600958914714288649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557289565010884624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3533567920050872295}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2989096193815445803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2752,7 +2782,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9256d2d7014cc2a448d87a8dd9443c65, type: 3}
+  - {fileID: 2100000, guid: 7d14f53e9b47e1a498e452998bda16cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2839,7 +2869,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9256d2d7014cc2a448d87a8dd9443c65, type: 3}
+  - {fileID: 2100000, guid: 7d14f53e9b47e1a498e452998bda16cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3197,6 +3227,7 @@ Transform:
   - {fileID: 3533567920050871831}
   - {fileID: 2108523352932103195}
   - {fileID: 2484083448282471263}
+  - {fileID: 7600958914714288649}
   m_Father: {fileID: 3533567920050872289}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 2.5417795, y: 0.3455097, z: 4.9638844}
@@ -3615,7 +3646,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9256d2d7014cc2a448d87a8dd9443c65, type: 3}
+  - {fileID: 2100000, guid: 7d14f53e9b47e1a498e452998bda16cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3844,6 +3875,8 @@ MonoBehaviour:
     transform: {fileID: 3533567920050871929}
   - name: RightFoot
     transform: {fileID: 3533567920050871871}
+  - name: JetHolder
+    transform: {fileID: 7600958914714288649}
 --- !u!114 &12911807999488030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3866,17 +3899,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1
-      outSlope: -1
+      inSlope: -0.19999999
+      outSlope: -0.19999999
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -1
-      outSlope: -1
+      value: 0.8
+      inSlope: -0.19999999
+      outSlope: -0.19999999
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

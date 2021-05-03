@@ -325,12 +325,12 @@ namespace ManipulatorMod.Modules
         {
             AimAnimator aimAnimator = model.AddComponent<AimAnimator>();
             aimAnimator.directionComponent = prefab.GetComponent<CharacterDirection>();
-            aimAnimator.pitchRangeMax = 90f;
-            aimAnimator.pitchRangeMin = -90f;
-            aimAnimator.yawRangeMin = -80f;
-            aimAnimator.yawRangeMax = 80f;
-            aimAnimator.pitchGiveupRange = 70f;
-            aimAnimator.yawGiveupRange = 70f;
+            aimAnimator.pitchRangeMax = 80f;
+            aimAnimator.pitchRangeMin = -80f;
+            aimAnimator.yawRangeMin = -90f;
+            aimAnimator.yawRangeMax = 90f;
+            aimAnimator.pitchGiveupRange = 40f;
+            aimAnimator.yawGiveupRange = 40f;
             aimAnimator.giveupDuration = 3f;
             aimAnimator.inputBank = prefab.GetComponent<InputBankTest>();
         }

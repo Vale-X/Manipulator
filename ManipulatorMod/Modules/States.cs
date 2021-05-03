@@ -32,18 +32,15 @@ namespace ManipulatorMod.Modules
             entityStates.Add(typeof(BaseManipulatorSkillState));
 
             entityStates.Add(typeof(ManipulatorMain));
-
+            entityStates.Add(typeof(ManipulatorJetpack));
             entityStates.Add(typeof(BaseEmote));
             entityStates.Add(typeof(Rest));
             entityStates.Add(typeof(Dance));
 
             entityStates.Add(typeof(BaseMeleeAttack));
             entityStates.Add(typeof(ElementalSlashState));
-
             entityStates.Add(typeof(ElementalSpellState));
-
             entityStates.Add(typeof(ElementalBlinkState));
-
             entityStates.Add(typeof(ElementalSwitchState));
         }
 

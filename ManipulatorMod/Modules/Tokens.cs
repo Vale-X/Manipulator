@@ -40,9 +40,9 @@ namespace ManipulatorMod.Modules
             LanguageAPI.Add("KEYWORD_LIGHTNINGSPELL", $"<color=#98509f><style=cKeywordName>Surge</style><style=cSub><color=#98509f>Lightning Invoke</color>. Discharge a bolt that <style=cIsUtility>chains to up to {StatValues.lightningBounceCount} targets</style>, dealing <style=cIsDamage>{100f * StatValues.lightningCoefficient}% damage</style> to each.");
             LanguageAPI.Add("KEYWORD_ICESPELL", $"<color=#35bbe2><style=cKeywordName>Cryospire</style></color><style=cSub><color=#35bbe2>Ice Invoke</color>. Create a pillar that deals <style=cIsDamage>{100f * StatValues.icePillarExplosionCoefficient}% damage</style> and <style=cIsUtility>freeezes</style>. The pillar explodes, dealing <style=cIsDamage>{100f * StatValues.icePillarExplosionCoefficient}% damage</style> and <style=cIsUtility>freezing</style> again.");
 
-            LanguageAPI.Add("KEYWORD_FIREEFFECT", $"<color=#ec8122><style=cKeywordName>Fire</style></color><style=cSub><style=cIsDamage>Ignite enemies</style> on hit");
+            LanguageAPI.Add("KEYWORD_FIREEFFECT", $"<color=#ec8122><style=cKeywordName>Fire</style></color><style=cSub><style=cIsDamage>Ignite enemies</style> on hit.");
             LanguageAPI.Add("KEYWORD_LIGHTNINGEFFECT", $"<color=#98509f><style=cKeywordName>Lightning</style></color><style=cSub>Create a <style=cIsDamage>burst of lightning</style>.");
-            LanguageAPI.Add("KEYWORD_ICEEFFECT", $"<color=#35bbe2><style=cKeywordName>Ice</style></color><style=cSub><style=cIsUtility>Slow enemies</style> on hit.");
+            LanguageAPI.Add("KEYWORD_ICEEFFECT", $"<color=#35bbe2><style=cKeywordName>Ice</style></color><style=cSub>A <style=cIsUtility>stacking Slow on enemies</style> that freezes at maximum stacks.");
 
             LanguageAPI.Add("KEYWORD_FIREBONUS", $"<color=#ec8122><style=cKeywordName>Fire</style></color><style=cSub><style=cIsDamage>Increases damage.</style>");
             LanguageAPI.Add("KEYWORD_LIGHTNINGBONUS", $"<color=#98509f><style=cKeywordName>Lightning</style></color><style=cSub><style=cIsUtility>Reduces cooldown</style> for each enemy hit.");
@@ -50,8 +50,9 @@ namespace ManipulatorMod.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Manipulator passive");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "He dun' have one (yet?).");
+            //ACE means Adaptive Conduit Equipment (for now). Yay lore!
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "ACE Pack");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Holding the Jump key causes Manipulator to <style=cIsUtility>temporarily hover in the air</style>.");
             #endregion
 
             #region Primary
@@ -70,7 +71,7 @@ namespace ManipulatorMod.Modules
             #endregion
 
             #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_SWITCH_NAME", "ECE Cycle");
+            LanguageAPI.Add(prefix + "SPECIAL_SWITCH_NAME", "Conduit Cycle");
             LanguageAPI.Add(prefix + "SPECIAL_SWITCH_DESCRIPTION", $"Cycle to the next element: <color=#ec8122>Fire</color>, <color=#98509f>Lightning</color> or <color=#35bbe2>Ice</color>. <style=cIsUtility>Grant an effect to the next Secondary or Utility cast</style>.");
             #endregion
 

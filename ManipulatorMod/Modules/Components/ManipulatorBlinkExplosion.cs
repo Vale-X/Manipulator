@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using RoR2;
 using RoR2.Projectile;
 using ManipulatorMod.SkillStates;
+using ManipulatorMod.Modules.Misc;
 
 namespace ManipulatorMod.Modules.Components
 {
@@ -12,6 +13,8 @@ namespace ManipulatorMod.Modules.Components
 	[RequireComponent(typeof(ProjectileController))]
 	public class ProjectileBlinkExplosion : MonoBehaviour, IProjectileImpactBehavior
 	{
+		public bool useIceDebuff;
+
 		// Token: 0x06002661 RID: 9825 RVA: 0x000A02AD File Offset: 0x0009E4AD
 		protected void Awake()
 		{
@@ -105,10 +108,10 @@ namespace ManipulatorMod.Modules.Components
 			}
 			if (this.projectileDamage)
 			{
-				this.blastAttack = new BlastAttack
+				ElementalBlastAttack elementalBlast = new ElementalBlastAttack
 				{
 					position = base.transform.position,
-					baseDamage = this.projectileDamage.damage * this.blastDamageCoefficient,
+					baseDamage = this.projectileDamage.damage, // * this.blastDamageCoefficient,
 					baseForce = this.projectileDamage.force * this.blastDamageCoefficient,
 					radius = this.blastRadius,
 					attacker = (this.projectileController.owner ? this.projectileController.owner.gameObject : null),
@@ -122,7 +125,9 @@ namespace ManipulatorMod.Modules.Components
 					damageColorIndex = this.projectileDamage.damageColorIndex,
 					damageType = this.projectileDamage.damageType,
 					attackerFiltering = this.blastAttackerFiltering
-				}.Fire();
+				};
+				this.blastAttack = elementalBlast.Fire();
+				elementalBlast.ApplyIceDebuff(useIceDebuff);
 				this.elementalRef.ElementalBonus(this.blastAttack.hitCount);
 			}
 			if (this.fireChildren)
@@ -308,7 +313,7 @@ namespace ManipulatorMod.Modules.Components
 		}
 
 		private ElementalBlinkState elementalRef;
-		private BlastAttack.Result blastAttack;
+		private ElementalBlastAttack.Result blastAttack;
 
 		private ProjectileController projectileController;
 		private ProjectileDamage projectileDamage;
@@ -327,7 +332,7 @@ namespace ManipulatorMod.Modules.Components
 		public bool destroyOnEnemy = true;
 		public bool destroyOnWorld;
 		public bool timerAfterImpact;
-		public BlastAttack.FalloffModel falloffModel = BlastAttack.FalloffModel.Linear;
+		public BlastAttack.FalloffModel falloffModel = BlastAttack.FalloffModel.None;
 		public float lifetime;
 		public float lifetimeAfterImpact;
 		public float lifetimeRandomOffset;

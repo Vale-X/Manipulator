@@ -1,4 +1,5 @@
-﻿using ManipulatorMod.SkillStates.BaseStates;
+﻿using System.Collections.Generic;
+using ManipulatorMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using ManipulatorMod.Modules;
@@ -25,6 +26,8 @@ namespace ManipulatorMod.SkillStates
         private float attackDuration = StatValues.attackDuration;
         private ManipulatorController manipulatorController;
 
+        private bool useIceDebuff;
+
         public override void OnEnter()
         {
             manipulatorController = characterBody.GetComponent<ManipulatorController>();
@@ -36,16 +39,19 @@ namespace ManipulatorMod.SkillStates
                     MeleeElement = DamageType.IgniteOnHit;
                     this.wavePrefab = Modules.Projectiles.waveFirePrefab;
                     this.wavePrefabAlt = Modules.Projectiles.waveFirePrefabAlt;
+                    this.useIceDebuff = false;
                     break;
                 case ManipulatorController.ManipulatorElement.Lightning:
                     MeleeElement = DamageType.Generic;
                     this.wavePrefab = Modules.Projectiles.waveLightningPrefab;
                     this.wavePrefabAlt = Modules.Projectiles.waveLightningPrefabAlt;
+                    this.useIceDebuff = false;
                     break;
                 case ManipulatorController.ManipulatorElement.Ice:
-                    MeleeElement = DamageType.SlowOnHit;
+                    MeleeElement = DamageType.Generic;
                     this.wavePrefab = Modules.Projectiles.waveIcePrefab;
                     this.wavePrefabAlt = Modules.Projectiles.waveIcePrefabAlt;
+                    this.useIceDebuff = true;
                     break;
             }
 
@@ -71,22 +77,6 @@ namespace ManipulatorMod.SkillStates
             //ChangeRotation();
 
             base.OnEnter();
-        }
-
-        private void ChangeRotation()
-        {
-            //match rotation of wave to angle of swing
-            switch (this.swingIndex)
-            {
-                case 0:
-
-                    Debug.LogWarning("case 0");
-                    break;
-                case 1:
-
-                    Debug.LogWarning("case 1");
-                    break;
-            }
         }
 
         protected override void PlayAttackAnimation()
@@ -135,9 +125,17 @@ namespace ManipulatorMod.SkillStates
             }
         }
 
-        protected override void OnHitEnemyAuthority()
+        protected override void OnHitEnemyAuthority(List<HealthComponent> healthList)
         {
-            base.OnHitEnemyAuthority();
+            base.OnHitEnemyAuthority(healthList);
+
+            if (this.useIceDebuff)
+            {
+                foreach (HealthComponent health in healthList)
+                {
+                    health.body.AddTimedBuff(Modules.Buffs.iceChillDebuff, StatValues.chillDebuffDuration, StatValues.chillDebuffMaxStacks);
+                }
+            }
         }
 
         protected override void SetNextState()

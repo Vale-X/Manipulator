@@ -2,6 +2,7 @@
 using RoR2.Skills;
 using R2API.Utils;
 using UnityEngine;
+using System.Diagnostics;
 using ManipulatorMod.Modules.Misc;
 
 namespace ManipulatorMod.Modules.Components
@@ -13,6 +14,10 @@ namespace ManipulatorMod.Modules.Components
 
         public bool attackReset;
         public bool gotStartingElement;
+        public bool hasJetBuff;
+        public bool endJet;
+        private Stopwatch jetStopwatch;
+
 
         private CharacterBody characterBody;
         private CharacterModel model;
@@ -20,6 +25,10 @@ namespace ManipulatorMod.Modules.Components
         public ManipulatorTracker tracker;
         private Animator modelAnimator;
         private SkillLocator skillLocator;
+        private Material modelMaterial;
+        private Material matVariantFire;
+        private Material matVariantLightning;
+        private Material matVariantIce;
 
         public enum ManipulatorElement
         {
@@ -39,15 +48,24 @@ namespace ManipulatorMod.Modules.Components
             this.tracker = this.gameObject.GetComponent<ManipulatorTracker>();
             this.modelAnimator = this.gameObject.GetComponentInChildren<Animator>();
             this.skillLocator = this.gameObject.GetComponentInChildren<SkillLocator>();
-            //this.hasBazookaReady = false;
-
-            //Invoke("CheckWeapon", 0.2f);
+            this.jetStopwatch = new Stopwatch();
         }
 
         public void Start()
         {
             this.currentElement = GetStartingElement();
             this.SetElementSkillIcons(this.currentElement);
+            this.SetMaterialEmissive(this.currentElement);
+        }
+
+        public void FixedUpdate()
+        {
+            if (hasJetBuff)
+            {
+                this.jetStopwatch.Start();
+                if (this.jetStopwatch.Elapsed.TotalSeconds >= StatValues.jetDuration) this.endJet = true;
+            }
+            else if (this.characterBody.characterMotor.isGrounded) this.jetStopwatch.Reset();
         }
 
         private ManipulatorElement GetStartingElement()
@@ -75,6 +93,42 @@ namespace ManipulatorMod.Modules.Components
                     tempElement.SwitchElementIcon(newElement);
                 }
             }
+        }
+
+        public void SetMaterialEmissive(ManipulatorElement newElement)
+        {
+            //UnityEngine.Debug.LogWarning("Settting mat emissive");
+            switch (newElement)
+            {
+                case ManipulatorElement.Fire:
+                    this.UpdateMaterial(this.model, Modules.Survivors.Manipulator.manipulatorMatFire);
+                    //UnityEngine.Debug.LogWarning("Settting mat emissive fire");
+                    break;
+                case ManipulatorElement.Lightning:
+                    this.UpdateMaterial(this.model, Modules.Survivors.Manipulator.manipulatorMatLightning);
+                    //UnityEngine.Debug.LogWarning("Settting mat emissive lightning");
+                    break;
+                case ManipulatorElement.Ice:
+                    this.UpdateMaterial(this.model, Modules.Survivors.Manipulator.manipulatorMatIce);
+                    //UnityEngine.Debug.LogWarning("Settting mat emissive ice");
+                    break;
+                default:
+                    UnityEngine.Debug.LogWarning("SetMaterialEmissive warning: using default, may be recursive!");
+                    SetMaterialEmissive(GetStartingElement());
+                    break;
+            }
+        }
+
+        private void UpdateMaterial(CharacterModel model, Material newMat)
+        {
+            CharacterModel.RendererInfo[] rendererInfos = model.baseRendererInfos;
+            CharacterModel.RendererInfo bodyInfo = rendererInfos[Modules.Survivors.Manipulator.bodyRendererIndex];
+            CharacterModel.RendererInfo swordInfo = rendererInfos[Modules.Survivors.Manipulator.swordRendererIndex];
+            bodyInfo.defaultMaterial = newMat;
+            swordInfo.defaultMaterial = newMat;
+            rendererInfos.SetValue(bodyInfo, Modules.Survivors.Manipulator.bodyRendererIndex);
+            rendererInfos.SetValue(swordInfo, Modules.Survivors.Manipulator.swordRendererIndex);
+            model.baseRendererInfos = rendererInfos;
         }
 
         /*private void CheckWeapon()

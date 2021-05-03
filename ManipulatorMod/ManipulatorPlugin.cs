@@ -13,6 +13,7 @@ namespace ManipulatorMod
     [BepInDependency("com.TeamMoonstorm.Starstorm2", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.KingEnderBrine.ScrollableLobbyUI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.johnedwa.RTAutoSprintEx", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(StatValues.MODUID, StatValues.MODNAME, StatValues.MODVERSION)]
@@ -68,12 +69,23 @@ namespace ManipulatorMod
             //new Modules.ContentPacks().CreateContentPack();
             new Modules.ContentPacks().Initialize();
 
+            //AutoSprint();
             Hook();
         }
 
         private void Start()
         {
             //Modules.Survivors.Manipulator.SetItemDisplays();
+        }
+
+        public void AutoSprint()
+        {
+            //support for RTAutoSprintEX
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.johnedwa.RTAutoSprintEx"))
+            {
+                SendMessage("RT_SprintDisableMessage", "ManipulatorMod.SkillStates.ElementalSlashState");
+                Debug.LogFormat("Autosprint support added");
+            }
         }
 
         private void Hook()
@@ -99,6 +111,16 @@ namespace ManipulatorMod
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
             orig(self);
+
+            if (self)
+            {
+                if (self.HasBuff(Modules.Buffs.hiddenJetBuff))
+                {
+                    self.moveSpeed = self.moveSpeed * StatValues.jetMoveMulti;
+                    self.acceleration = self.acceleration * (StatValues.jetMoveMulti * 2);
+                }
+            }
+            Modules.Buffs.HandleDebuffs(self);
         }
     }
 }

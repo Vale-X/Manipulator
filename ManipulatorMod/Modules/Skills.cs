@@ -50,6 +50,7 @@ namespace ManipulatorMod.Modules
             skillLocator.special._skillFamily = specialFamily;
 
             elementController.elementSkill = targetPrefab.AddComponent<GenericSkill>();
+            elementController.elementSkill.hideInCharacterSelect = true;
             SkillFamily elementFamily = ScriptableObject.CreateInstance<SkillFamily>();
             (elementFamily as ScriptableObject).name = targetPrefab.name + "ElementFamily";
             elementFamily.variants = new SkillFamily.Variant[0];
@@ -60,6 +61,18 @@ namespace ManipulatorMod.Modules
             skillFamilies.Add(utilityFamily);
             skillFamilies.Add(specialFamily);
             skillFamilies.Add(elementFamily);
+        }
+
+        internal static void AddPassiveSkill(GameObject targetPrefab, PassiveSkillDefInfo passiveInfo)
+        {
+            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+
+            skillLocator.passiveSkill.enabled = true;
+            skillLocator.passiveSkill.icon = passiveInfo.icon;
+            skillLocator.passiveSkill.skillNameToken = passiveInfo.skillNameToken;
+            skillLocator.passiveSkill.skillDescriptionToken = passiveInfo.skillDescriptionToken;
+            skillLocator.passiveSkill.keywordToken = passiveInfo.keywordToken;
+            
         }
 
         // this could all be a lot cleaner but at least it's simple and easy to work with
@@ -239,7 +252,7 @@ namespace ManipulatorMod.Modules
             return skillDef;
         }
 
-        internal static SkillDefElement CreateElementSkillDef(SkillDefElementInfo skillDefElementInfo)
+        internal static SkillDefElement CreateElementSkillDef(ElementSkillDefInfo skillDefElementInfo)
         {
             SkillDefElement skillDef = ScriptableObject.CreateInstance<SkillDefElement>();
 
@@ -350,7 +363,7 @@ internal class SkillDefInfo
     public string[] keywordTokens;
 }
 
-internal class SkillDefElementInfo
+internal class ElementSkillDefInfo
 {
     public string skillName;
     public string skillNameToken;
@@ -378,4 +391,13 @@ internal class SkillDefElementInfo
     public int stockToConsume;
 
     public string[] keywordTokens;
+}
+
+internal class PassiveSkillDefInfo
+{
+    public string skillNameToken;
+    public string skillDescriptionToken;
+    public Sprite icon;
+
+    public string keywordToken;
 }

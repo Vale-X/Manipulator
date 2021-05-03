@@ -199,7 +199,7 @@ namespace ManipulatorMod.SkillStates
 			{
 				for (int i = 0; i < enemiesHit; i++)
 				{
-					base.skillLocator.secondary.rechargeStopwatch = base.skillLocator.secondary.rechargeStopwatch + (reductionPercent * (base.skillLocator.secondary.finalRechargeInterval - base.skillLocator.secondary.rechargeStopwatch));
+					base.skillLocator.utility.rechargeStopwatch = base.skillLocator.utility.rechargeStopwatch + (reductionPercent * (base.skillLocator.utility.finalRechargeInterval - base.skillLocator.utility.rechargeStopwatch));
 				}
 				base.characterBody.RemoveBuff(Modules.Buffs.lightningBonusBuff);
 			}

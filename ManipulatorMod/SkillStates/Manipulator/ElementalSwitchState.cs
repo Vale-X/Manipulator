@@ -46,10 +46,12 @@ namespace ManipulatorMod.SkillStates
                     break;
             }
 
+            
+            //this.PlaySwitchAnimation();
+
             //trigger attack reset on primary attack,
             ManipulatorMain.attackReset = true;
             this.manipulatorController.attackReset = true;
-
         }
 
         public void SwitchElement(ManipulatorController.ManipulatorElement elementType)
@@ -59,8 +61,15 @@ namespace ManipulatorMod.SkillStates
             skillLocator.utility.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texUtilityIcon" + elementType.ToString());
             skillLocator.special.skillDef.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon" + elementType.ToString());
 
-            manipulatorController.currentElement = elementType;
+            this.manipulatorController.currentElement = elementType;
+            this.manipulatorController.SetMaterialEmissive(elementType);
             ElementBonus();
+        }
+
+        private void PlaySwitchAnimation()
+        {
+            //base.PlayCrossfade("Gesture, Additive", "Switch", "Switch.playbackRate", 0.15f, 0.05f);
+            base.PlayAnimation("Gesture, Additive", "Switch", "Switch.playbackRate", 0.5f);
         }
 
         public void ElementBonus()

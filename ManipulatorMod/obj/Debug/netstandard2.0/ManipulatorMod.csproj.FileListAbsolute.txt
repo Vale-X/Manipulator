@@ -89,7 +89,6 @@ D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorM
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\bin\Debug\netstandard2.0\MonoMod.RuntimeDetour.xml
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\bin\Debug\netstandard2.0\MonoMod.Utils.xml
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\bin\Debug\netstandard2.0\R2API.xml
-D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.csprojAssemblyReference.cache
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.Properties.Resources.resources
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.csproj.GenerateResource.cache
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.AssemblyInfoInputs.cache
@@ -98,3 +97,5 @@ D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorM
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.csproj.CopyComplete
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.dll
 D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.pdb
+D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\bin\Debug\netstandard2.0\HGCSharpUtils.dll
+D:\Users\Kyle\Documents\RoR2Modding\0Modding\CustomMods\Manipulator\ManipulatorMod\obj\Debug\netstandard2.0\ManipulatorMod.csprojAssemblyReference.cache

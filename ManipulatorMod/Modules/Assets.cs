@@ -27,6 +27,8 @@ namespace ManipulatorMod.Modules
         public static Material commandoMat;
         public static Material mageJetMat;
 
+        internal static GameObject mageJetEffect;
+
         internal static void PopulateAssets()
         {
             if (mainAssetBundle == null)
@@ -45,6 +47,7 @@ namespace ManipulatorMod.Modules
             }
 
             mageJetMat = GetMageJetMaterial();
+            mageJetEffect = GetMageJetEffect();
 
             trackerPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/HuntressTrackingIndicator"), "ManipulatorTrackerPrefab", false);
             trackerPrefab.transform.Find("Core Pip").gameObject.GetComponent<SpriteRenderer>().color = Color.white;
@@ -214,6 +217,16 @@ namespace ManipulatorMod.Modules
             Material mat = UnityEngine.Object.Instantiate<Material>(mageJetMat);
 
             return mat;
+        }
+
+        private static GameObject GetMageJetEffect()
+        {
+            if (!mageJetEffect) mageJetEffect = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody").GetComponentInChildren<ChildLocator>().FindChild("JetOn").gameObject;
+
+            GameObject obj = UnityEngine.Object.Instantiate<GameObject>(mageJetEffect);
+            obj.SetActive(true);
+
+            return obj;
         }
 
         public static Material CreateMaterial(string materialName, Color matColor)

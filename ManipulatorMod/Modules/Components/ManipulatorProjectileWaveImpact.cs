@@ -7,38 +7,59 @@ using RoR2.Projectile;
 namespace ManipulatorMod.Modules.Components
 {
 	//this is an amalgamation of ProjectileSingleTargetImapct and ProjectileImpactExplosion, creating a child projectile after hitting a target.
-	// Token: 0x02000639 RID: 1593
 	[RequireComponent(typeof(ProjectileController))]
 	public class ManipulatorProjectileWaveImpact : MonoBehaviour, IProjectileImpactBehavior
 	{
-		// Token: 0x060026C9 RID: 9929 RVA: 0x000A2966 File Offset: 0x000A0B66
+		[Tooltip("Does this projectile release children on death?")]
+		public bool fireChildren;
+
+		public GameObject childrenProjectilePrefab;
+		public int childrenCount;
+
+		[Tooltip("What percentage of our damage does the children get?")]
+		public float childrenDamageCoefficient;
+
+		private ProjectileController projectileController;
+		private ProjectileDamage projectileDamage;
+		private bool alive = true;
+		public bool destroyWhenNotAlive = true;
+		public bool destroyOnWorld;
+		public GameObject impactEffect;
+		public string hitSoundString;
+		public string enemyHitSoundString;
+		private Vector3 impactNormal = Vector3.up;
+		public Vector3 minAngleOffset;
+		public Vector3 maxAngleOffset;
+		public ProjectileImpactExplosion.TransformSpace transformSpace;
+		public enum TransformSpace
+		{
+			World,
+			Local,
+			Normal
+		}
 
 		private Collider hitEnemyCollider;
 		private ProjectileImpactInfo hitEnemyInfo;
+
+		public bool useIceDebuff;
+
+		private float falloffRate = StatValues.falloffRate;
+		private float maxCoefficient = StatValues.falloffMax;
+		private float stopwatch;
+		private float minCoefficient = StatValues.falloffMin;
 
 		private void Awake()
 		{
 			this.projectileController = base.GetComponent<ProjectileController>();
 			this.projectileDamage = base.GetComponent<ProjectileDamage>();
+			this.stopwatch = this.maxCoefficient;
+			Debug.LogWarning($"start stopwatch: {this.stopwatch}");
 		}
-
-		// Token: 0x060026CA RID: 9930 RVA: 0x000A2980 File Offset: 0x000A0B80
 		public void OnChildImpact(Collider other)
 		{
 			HurtBox component = other.GetComponent<HurtBox>();
 			if (component)
 			{
-				/*Debug.LogWarning("other: " + other);
-				Debug.LogWarning("other.gameObject: " + other.gameObject);
-				Debug.LogWarning("other.Collider: " + other.GetComponent<Collider>());
-				Debug.LogWarning("other.Hurbox: " + other.GetComponent<HurtBox>());
-				Debug.LogWarning("other.gameObject.HurtBox: " + other.gameObject.GetComponent<HurtBox>());
-				Debug.LogWarning("other.Collider.HurtBox: " + other.GetComponent<Collider>().GetComponent<HurtBox>());
-				Debug.LogWarning("other.CharacterBody: " + other.GetComponent<CharacterBody>());
-				Debug.LogWarning("other.gameObject.CharacterBody: " + other.gameObject.GetComponent<CharacterBody>());
-				Debug.LogWarning("other.HealthComponent: " + other.GetComponent<HealthComponent>());
-				Debug.LogWarning("other.gameObject.HealthComponent: " + other.GetComponent<HealthComponent>());*/
-
 				ProjectileImpactInfo impactInfo = new ProjectileImpactInfo();
 				impactInfo.collider = other.GetComponent<Collider>();
 				impactInfo.estimatedPointOfImpact = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
@@ -48,65 +69,17 @@ namespace ManipulatorMod.Modules.Components
 			}
         }
 
-		/*public void OuterSetup()
-        {
-			this.projectileController = base.GetComponent<ProjectileController>();
-			this.projectileDamage = base.GetComponent<ProjectileDamage>();
-			this.overlapAttack = new OverlapAttack();
-			this.overlapAttack.procChainMask = this.projectileController.procChainMask;
-			this.overlapAttack.procCoefficient = this.projectileController.procCoefficient * this.overlapProcCoefficient;
-			this.overlapAttack.attacker = this.projectileController.owner;
-			this.overlapAttack.inflictor = base.gameObject;
-			this.overlapAttack.teamIndex = this.projectileController.teamFilter.teamIndex;
-			this.overlapAttack.damage = this.overlapDamageCoefficient * this.projectileDamage.damage;
-			this.overlapAttack.forceVector = this.overlapForceVector + this.projectileDamage.force * base.transform.forward;
-			this.overlapAttack.hitEffectPrefab = this.impactEffect;
-			this.overlapAttack.isCrit = this.projectileDamage.crit;
-			this.overlapAttack.damageColorIndex = this.projectileDamage.damageColorIndex;
-			this.overlapAttack.damageType = this.projectileDamage.damageType;
-			this.overlapAttack.procChainMask = this.projectileController.procChainMask;
-			this.overlapAttack.maximumOverlapTargets = this.overlapMaximumOverlapTargets;
-			this.overlapAttack.hitBoxGroup = base.GetComponent<HitBoxGroup>();
-			Debug.LogWarning("setup attack info");
-		}
-
 		public void FixedUpdate()
-		{
-			Debug.LogWarning("Update");
-			if (NetworkServer.active)
-			{
-				Debug.LogWarning("ServerIsActive");
-				if (this.overlapResetInterval >= 0f)
-				{
-					Debug.LogWarning("ResetInterval >= 0f");
-					this.overlapResetTimer -= Time.fixedDeltaTime;
-					if (this.overlapResetTimer <= 0f)
-					{
-						Debug.LogWarning("overlapReset <= 0f");
-						this.overlapResetTimer = this.overlapResetInterval;
-						this.ResetOverlapAttack();
-					}
-				}
-				this.overlapFireTimer -= Time.fixedDeltaTime;
-				Debug.LogWarning("");
-				if (this.overlapFireTimer <= 0f)
-				{
-					this.overlapFireTimer = 1f / this.overlapFireFrequency;
-					this.overlapAttack.Fire(null);
-					Debug.LogWarning("AttackFired");
-				}
-			}
+        {
+			this.stopwatch -= (Time.fixedDeltaTime * this.falloffRate);
+			if (this.stopwatch <= this.minCoefficient) this.stopwatch = this.minCoefficient;
 		}
-
-		public void ResetOverlapAttack()
-		{
-			this.overlapAttack.damageType = this.projectileDamage.damageType;
-			this.overlapAttack.ResetIgnoredHealthComponents();
-		}*/
 
 		public void OnProjectileImpact(ProjectileImpactInfo impactInfo)
 		{
-
+			Debug.LogWarning($"stopwatch: {this.stopwatch}");
+			Debug.LogWarning($"stopwatch divided: {this.stopwatch / this.maxCoefficient}");
+			Debug.LogWarning($"damage: {this.projectileDamage.damage * (this.stopwatch / this.maxCoefficient)}");
 			if (!this.alive)
 			{
 				return;
@@ -119,7 +92,7 @@ namespace ManipulatorMod.Modules.Components
 				DamageInfo damageInfo = new DamageInfo();
 				if (this.projectileDamage)
 				{
-					damageInfo.damage = this.projectileDamage.damage;
+					damageInfo.damage = this.projectileDamage.damage * (this.stopwatch/this.maxCoefficient);
 					damageInfo.crit = this.projectileDamage.crit;
 					damageInfo.attacker = this.projectileController.owner;
 					damageInfo.inflictor = base.gameObject;
@@ -151,6 +124,7 @@ namespace ManipulatorMod.Modules.Components
 							{
 								damageInfo.ModifyDamageInfo(component.damageModifier);
 								healthComponent.TakeDamage(damageInfo);
+								this.ApplyIceDebuff(healthComponent);
 								GlobalEventManager.instance.OnHitEnemy(damageInfo, component.healthComponent.gameObject);
 							}
 						}
@@ -200,6 +174,14 @@ namespace ManipulatorMod.Modules.Components
 			}
 		}
 
+		private void ApplyIceDebuff(HealthComponent healthComponent)
+        {
+			if (useIceDebuff)
+            {
+				healthComponent.body.AddTimedBuff(Modules.Buffs.iceChillDebuff, StatValues.chillDebuffDuration, StatValues.chillDebuffMaxStacks);
+			}
+        }
+
 		protected void FireChild(Vector3 direction)
 		{
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.childrenProjectilePrefab, base.transform.position, Util.QuaternionSafeLookRotation(direction));
@@ -225,66 +207,6 @@ namespace ManipulatorMod.Modules.Components
 				stickComponent.TrySticking(hitEnemyCollider, hitEnemyInfo.estimatedImpactNormal);
             }
 			NetworkServer.Spawn(gameObject);
-		}
-
-		// Token: 0x04002175 RID: 8565
-		[Tooltip("Does this projectile release children on death?")]
-		public bool fireChildren;
-
-		// Token: 0x04002176 RID: 8566
-		public GameObject childrenProjectilePrefab;
-
-		// Token: 0x04002177 RID: 8567
-		public int childrenCount;
-
-		// Token: 0x04002178 RID: 8568
-		[Tooltip("What percentage of our damage does the children get?")]
-		public float childrenDamageCoefficient;
-
-		// Token: 0x04002208 RID: 8712
-		private ProjectileController projectileController;
-
-		// Token: 0x04002209 RID: 8713
-		private ProjectileDamage projectileDamage;
-
-		// Token: 0x0400220A RID: 8714
-		private bool alive = true;
-
-		// Token: 0x0400220B RID: 8715
-		public bool destroyWhenNotAlive = true;
-
-		// Token: 0x0400220C RID: 8716
-		public bool destroyOnWorld;
-
-		// Token: 0x0400220D RID: 8717
-		public GameObject impactEffect;
-
-		// Token: 0x0400220E RID: 8718
-		public string hitSoundString;
-
-		// Token: 0x0400220F RID: 8719
-		public string enemyHitSoundString;
-
-		// Token: 0x04002163 RID: 8547
-		private Vector3 impactNormal = Vector3.up;
-
-		// Token: 0x04002179 RID: 8569
-		public Vector3 minAngleOffset;
-
-		// Token: 0x0400217A RID: 8570
-		public Vector3 maxAngleOffset;
-
-		// Token: 0x0400217B RID: 8571
-		public ProjectileImpactExplosion.TransformSpace transformSpace;
-
-		public enum TransformSpace
-		{
-			// Token: 0x04002182 RID: 8578
-			World,
-			// Token: 0x04002183 RID: 8579
-			Local,
-			// Token: 0x04002184 RID: 8580
-			Normal
 		}
 	}
 }

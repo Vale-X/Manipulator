@@ -6,6 +6,24 @@ This github project is currently a complete _mess_. So is the code. Please know 
 ## Extended Changelog
 This changelog is an extended version of the one found on the store, as to keep out the minor changes.
 
+  `0.3.2`
+  
+- __Added ACE Pack (Passive).__
+__Added element based materials on the model (Thanks KomradeSpectre for helping set this up!).__
+- __Changes to skills:__
+	- Ice's effect (for Primary and Utility) has been updated. Now a stacking slow that freezes upon reaching maximum stacks.
+    - Cross (Primary) is now Agile (animation system has been remade, so doesn't look as bad anymore).
+	- Cross's (Primary) wave now has damage falloff down to half damage (150%-75%).
+	- Increased Lightning Cross's (Lightning Primary) lightning burst radius from 2 to 2.5.
+	- Removed Venting Step's (Utility) damage falloff.
+	- *Developer Notes: People have been saying that they want him to be more melee, and are relying too much on the wave. I'm adding damage falloff to the wave, and increasing armor to MUL-T levels to make melee combat a bit more forgiving.*
+- __Changes to stats:__
+    - Increased Armor from 0 to 12.
+- __Fixes:__
+    - Fixed: Lightning Cross (Lightning Primary) was doing less damage than intended.
+	- Fixed: Venting Step (Utility) was doing more damage than intended.
+	- Fixed: Lightning Ventiny Step (Utility) bonus was reducing the cooldown of Invoke (Secondary) instead of Venting Step (Utility).
+
   `0.3.1`
   
 - __Added some animations, tweaked others (still WIP).__

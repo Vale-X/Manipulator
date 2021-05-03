@@ -17,6 +17,7 @@
           "BepInEx.MonoMod.Loader": "1.0.0.0",
           "BepInEx.Preloader": "5.3.0.0",
           "Facepunch.Steamworks": "1.2.0.0",
+          "HGCSharpUtils": "0.0.0.0",
           "MMHOOK_Assembly-CSharp": "0.0.0.0",
           "Mono.Cecil": "0.10.4.0",
           "Mono.Cecil.Mdb": "0.10.4.0",
@@ -104,6 +105,14 @@
           "Facepunch.Steamworks.dll": {
             "assemblyVersion": "1.2.0.0",
             "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "HGCSharpUtils/0.0.0.0": {
+        "runtime": {
+          "HGCSharpUtils.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -344,6 +353,11 @@
       "sha512": ""
     },
     "Facepunch.Steamworks/1.2.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HGCSharpUtils/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
