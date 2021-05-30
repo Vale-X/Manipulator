@@ -76,7 +76,7 @@
       <HintPath>..\libs\R2API.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
-      <HintPath>..\..\Moonstorm\Starstorm 2\bin\Debug\Rewired_Core.dll</HintPath>
+      <HintPath>..\libs\Rewired_Core.dll</HintPath>
     </Reference>
     <Reference Include="ScrollableLobbyUI">
       <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\test\BepInEx\plugins\KingEnderBrine-ScrollableLobbyUI\ScrollableLobbyUI\ScrollableLobbyUI.dll</HintPath>

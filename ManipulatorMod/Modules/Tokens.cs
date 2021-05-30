@@ -57,7 +57,7 @@ namespace ManipulatorMod.Modules
 
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_SLASH_NAME", "Cross");
-            LanguageAPI.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Helpers.agilePrefix + $"Slice forward for <style=cIsDamage>{100f * StatValues.attackDamageCoefficient}% damage</style>. Fire a wave <style=cIsUtility>based on the current element</style>, dealing <style=cIsDamage>{100f * StatValues.waveDamageCoefficient}% damage</style>.");
+            LanguageAPI.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Helpers.agilePrefix + $"Slice forward for <style=cIsDamage>{100f * StatValues.attackDamageCoefficient}% damage</style>. Fire a wave <style=cIsUtility>based on the current element</style>, dealing up to <style=cIsDamage>{100f * StatValues.waveDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Secondary

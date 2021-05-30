@@ -27,6 +27,7 @@
           "MonoMod.RuntimeDetour": "20.8.3.5",
           "MonoMod.Utils": "20.8.3.5",
           "R2API": "2.0.0.0",
+          "Rewired_Core": "1.0.0.0",
           "Unity.Postprocessing.Runtime": "0.0.0.0",
           "Unity.TextMeshPro": "0.0.0.0",
           "UnityEngine.AnimationModule": "0.0.0.0",
@@ -185,6 +186,14 @@
           "R2API.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Rewired_Core/1.0.0.0": {
+        "runtime": {
+          "Rewired_Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -403,6 +412,11 @@
       "sha512": ""
     },
     "R2API/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Rewired_Core/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

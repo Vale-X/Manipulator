@@ -6,10 +6,20 @@ This github project is currently a complete _mess_. So is the code. Please know 
 ## Extended Changelog
 This changelog is an extended version of the one found on the store, as to keep out the minor changes.
 
+  `0.3.3`
+  
+- __Added Passive Icon. Other icons in the works.__
+- __Added vanilla item displays (might do modded items in the future).__
+- __Changes to skills:__
+    - Reduced maximum Chill (Ice debuff) stacks from 10 to 8.
+	- Lightning Cross's (Lightning Primary) lightning explosion now has the damage falloff of the wave.
+- __Changes to stats:__
+    - Actually increased armor from 0 to 12 (oops).
+
   `0.3.2`
   
 - __Added ACE Pack (Passive).__
-__Added element based materials on the model (Thanks KomradeSpectre for helping set this up!).__
+- __Added element based materials on the model (Thanks KomradeSpectre for helping set this up!).__
 - __Changes to skills:__
 	- Ice's effect (for Primary and Utility) has been updated. Now a stacking slow that freezes upon reaching maximum stacks.
     - Cross (Primary) is now Agile (animation system has been remade, so doesn't look as bad anymore).

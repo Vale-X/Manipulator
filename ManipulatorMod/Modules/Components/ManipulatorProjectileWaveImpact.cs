@@ -25,6 +25,7 @@ namespace ManipulatorMod.Modules.Components
 		public bool destroyWhenNotAlive = true;
 		public bool destroyOnWorld;
 		public GameObject impactEffect;
+		public GameObject impactEffect2;
 		public string hitSoundString;
 		public string enemyHitSoundString;
 		private Vector3 impactNormal = Vector3.up;
@@ -53,7 +54,7 @@ namespace ManipulatorMod.Modules.Components
 			this.projectileController = base.GetComponent<ProjectileController>();
 			this.projectileDamage = base.GetComponent<ProjectileDamage>();
 			this.stopwatch = this.maxCoefficient;
-			Debug.LogWarning($"start stopwatch: {this.stopwatch}");
+			//Debug.LogWarning($"start stopwatch: {this.stopwatch}");
 		}
 		public void OnChildImpact(Collider other)
 		{
@@ -77,9 +78,9 @@ namespace ManipulatorMod.Modules.Components
 
 		public void OnProjectileImpact(ProjectileImpactInfo impactInfo)
 		{
-			Debug.LogWarning($"stopwatch: {this.stopwatch}");
-			Debug.LogWarning($"stopwatch divided: {this.stopwatch / this.maxCoefficient}");
-			Debug.LogWarning($"damage: {this.projectileDamage.damage * (this.stopwatch / this.maxCoefficient)}");
+			//Debug.LogWarning($"stopwatch: {this.stopwatch}");
+			//Debug.LogWarning($"stopwatch divided: {this.stopwatch / this.maxCoefficient}");
+			//Debug.LogWarning($"damage: {this.projectileDamage.damage * (this.stopwatch / this.maxCoefficient)}");
 			if (!this.alive)
 			{
 				return;
@@ -165,6 +166,7 @@ namespace ManipulatorMod.Modules.Components
 				if (NetworkServer.active && this.impactEffect)
 				{
 					EffectManager.SimpleImpactEffect(this.impactEffect, impactInfo.estimatedPointOfImpact, -base.transform.forward, !this.projectileController.isPrediction);
+					if (this.impactEffect2) EffectManager.SimpleImpactEffect(this.impactEffect2, impactInfo.estimatedPointOfImpact, -base.transform.forward, !this.projectileController.isPrediction);
 				}
 				Util.PlaySound(this.hitSoundString, base.gameObject);
 				if (this.destroyWhenNotAlive)
@@ -196,7 +198,7 @@ namespace ManipulatorMod.Modules.Components
 			ProjectileDamage component2 = gameObject.GetComponent<ProjectileDamage>();
 			if (component2)
 			{
-				component2.damage = this.projectileDamage.damage * this.childrenDamageCoefficient;
+				component2.damage = (this.projectileDamage.damage * this.childrenDamageCoefficient) * (this.stopwatch / this.maxCoefficient);
 				component2.crit = this.projectileDamage.crit;
 				component2.force = this.projectileDamage.force;
 				component2.damageColorIndex = this.projectileDamage.damageColorIndex;

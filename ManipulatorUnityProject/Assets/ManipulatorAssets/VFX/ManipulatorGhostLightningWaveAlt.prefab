@@ -67,6 +67,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManipulatorGhostLightningWave Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5290801339288889564, guid: 062d6d6da1725c543804fdeb47cd1c15,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.258819
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290801339288889564, guid: 062d6d6da1725c543804fdeb47cd1c15,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659259
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290801339288889564, guid: 062d6d6da1725c543804fdeb47cd1c15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325989329068232764, guid: 062d6d6da1725c543804fdeb47cd1c15,
+        type: 3}
+      propertyPath: m_Name
+      value: ManipulatorGhostLightningWaveAlt
+      objectReference: {fileID: 0}
     - target: {fileID: 9196514340266877099, guid: 062d6d6da1725c543804fdeb47cd1c15,
         type: 3}
       propertyPath: m_LocalRotation.z

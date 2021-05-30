@@ -22,12 +22,22 @@ namespace ManipulatorMod.Modules
 
         internal static List<EffectDef> effectDefs = new List<EffectDef>();
 
+        public static Dictionary<string, string> ShaderLookup = new Dictionary<string, string>()
+        {
+            //Shader internal name                  Path name
+            {"stubbed_Hopoo Games/Deferred/Standard Proxy", "shaders/deferred/hgstandard"},
+            {"stubbed_Hopoo Games/FX/Cloud Remap Proxy",    "shaders/fx/hgcloudremap"}
+        };
+
         // cache these and use to create our own materials
         public static Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/HGStandard");
-        public static Material commandoMat;
+        
+        public static Material mageMat;
         public static Material mageJetMat;
-
+        public static Material mageFireMat;
         internal static GameObject mageJetEffect;
+        public static GameObject waveImpactEffectFire;
+        public static GameObject waveImpactEffectFireAlt;
 
         internal static void PopulateAssets()
         {
@@ -48,6 +58,12 @@ namespace ManipulatorMod.Modules
 
             mageJetMat = GetMageJetMaterial();
             mageJetEffect = GetMageJetEffect();
+            mageFireMat = GetMageFireMaterial();
+
+            ConvertAllBundleShaders();
+
+            waveImpactEffectFire = LoadEffect("ManipulatorWaveImpactFire", 1.5f);
+            waveImpactEffectFireAlt = LoadEffect("ManipulatorWaveImpactFireAlt", 1.5f);
 
             trackerPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/HuntressTrackingIndicator"), "ManipulatorTrackerPrefab", false);
             trackerPrefab.transform.Find("Core Pip").gameObject.GetComponent<SpriteRenderer>().color = Color.white;
@@ -106,6 +122,22 @@ namespace ManipulatorMod.Modules
             }
         }
 
+        //Thank you Bleppy (and KomradeSpectre) for this!
+        internal static void ConvertAllBundleShaders()
+        {
+            Debug.Log("Manipulator: Attempting to convert shaders...");
+            var materialAssets = mainAssetBundle.LoadAllAssets<Material>();
+            Debug.LogWarning(materialAssets);
+            foreach (Material material in materialAssets)
+            {
+                //Debug.Log("Manipulator: Replacing " + material.shader.name);
+                if (!material.shader.name.StartsWith("stubbed_")) { continue; }
+                var replacementShader = Resources.Load<Shader>(ShaderLookup[material.shader.name]);
+                if (replacementShader) { material.shader = replacementShader; }
+                Debug.Log("Manipulator: Succesfully replaced " + material.name + "'s shaders with Hopoo shaders");
+            }
+        }
+
         internal static CharacterModel.RendererInfo[] SetupRendererInfos(GameObject obj)
         {
             MeshRenderer[] meshes = obj.GetComponentsInChildren<MeshRenderer>();
@@ -137,20 +169,29 @@ namespace ManipulatorMod.Modules
 
         private static GameObject LoadEffect(string resourceName)
         {
-            return LoadEffect(resourceName, "", false);
+            return LoadEffect(resourceName, "", false, 12f);
+        }
+        private static GameObject LoadEffect(string resourceName, float lifetime)
+        {
+            return LoadEffect(resourceName, "", false, lifetime);
         }
 
         private static GameObject LoadEffect(string resourceName, string soundName)
         {
-            return LoadEffect(resourceName, soundName, false);
+            return LoadEffect(resourceName, soundName, false, 12f);
         }
 
         private static GameObject LoadEffect(string resourceName, bool parentToTransform)
         {
-            return LoadEffect(resourceName, "", parentToTransform);
+            return LoadEffect(resourceName, "", parentToTransform, 12f);
         }
 
         private static GameObject LoadEffect(string resourceName, string soundName, bool parentToTransform)
+        {
+            return LoadEffect(resourceName, soundName, parentToTransform, 12f);
+        }
+
+        private static GameObject LoadEffect(string resourceName, string soundName, bool parentToTransform, float lifetime)
         {
             GameObject newEffect = mainAssetBundle.LoadAsset<GameObject>(resourceName);
 
@@ -189,12 +230,12 @@ namespace ManipulatorMod.Modules
 
         public static Material CreateMaterial(string materialName, Color matColor, float emission, Color emissionColor, float normalStrength)
         {
-            if (!commandoMat) commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
+            if (!mageMat) mageMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[3].defaultMaterial;
 
-            Material mat = UnityEngine.Object.Instantiate<Material>(commandoMat);
+            Material mat = UnityEngine.Object.Instantiate<Material>(mageMat);
             Material tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
 
-            if (!tempMat) return commandoMat;
+            if (!tempMat) return mageMat;
 
             mat.name = materialName;
 
@@ -215,6 +256,15 @@ namespace ManipulatorMod.Modules
             if (!mageJetMat) mageJetMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
 
             Material mat = UnityEngine.Object.Instantiate<Material>(mageJetMat);
+
+            return mat;
+        }
+
+        public static Material GetMageFireMaterial()
+        {
+            if (!mageFireMat) mageFireMat = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/MageFireboltGhost").GetComponentInChildren<MeshRenderer>().materials[0];
+
+            Material mat = UnityEngine.Object.Instantiate<Material>(mageFireMat);
 
             return mat;
         }

@@ -7,6 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using ManipulatorMod.Modules.Components;
+using Rewired.ComponentControls.Effects;
 
 namespace ManipulatorMod.Modules
 {
@@ -73,7 +74,7 @@ namespace ManipulatorMod.Modules
             //Modules.Prefabs.projectilePrefabs.Add(prefabNameHERE);
         }
 
-        private static GameObject CreateNewWave(string waveName, DamageType damageType, string ghostPrefabName, Vector3 waveCoreSize, Vector3 waveOuterSize, Vector3 rotation, bool useIceDebuff)
+        private static GameObject CreateNewWave(string waveName, DamageType damageType, string ghostPrefabName, Vector3 waveCoreSize, Vector3 waveOuterSize, Vector3 rotation, bool useIceDebuff, GameObject waveImpact)
         {
             //clone fire projectile, fix size (original size is 0.05, 0.05, 1)
             GameObject newWavePrefab = CloneProjectilePrefab("Fireball", waveName);
@@ -87,10 +88,15 @@ namespace ManipulatorMod.Modules
 
             //set ghost, damage and owner
             ProjectileController newWaveController = newWavePrefab.GetComponent<ProjectileController>();
-            newWaveController.ghostPrefab = CreateGhostPrefab(ghostPrefabName);
+            newWaveController.ghostPrefab = CreateGhostPrefab(ghostPrefabName, false);
             newWaveController.GetComponent<ProjectileDamage>().damageType = damageType;
             newWaveController.owner = Survivors.Manipulator.characterPrefab;
             newWaveController.procCoefficient = StatValues.waveProcCoefficient;
+
+            /*ChildLocator ghostChildLocator = newWaveController.ghostPrefab.GetComponent<ChildLocator>();
+            MeshRenderer ghostMeshRenderer = newWaveController.ghostPrefab.GetComponentInChildren<MeshRenderer>();
+            ghostMeshRenderer.materials[0] = Assets.mageFireMat;
+            ghostMeshRenderer.material = Assets.mageFireMat;*/
 
             TeamFilter newWaveTeam = newWavePrefab.GetComponent<TeamFilter>();
             newWaveTeam.defaultTeam = TeamIndex.Player;
@@ -101,6 +107,10 @@ namespace ManipulatorMod.Modules
             newWaveImpact.destroyOnWorld = true;
             newWaveImpact.destroyWhenNotAlive = true;
             newWaveImpact.useIceDebuff = useIceDebuff;
+            GameObject waveImpactEffect = Resources.Load<GameObject>("Prefabs/Effects/Muzzleflashes/MuzzleflashMageFire");
+            waveImpactEffect.transform.localScale *= 1.25f;
+            newWaveImpact.impactEffect = waveImpactEffect;
+            newWaveImpact.impactEffect2 = waveImpact;
 
             ProjectileSimple newWaveSimple = newWavePrefab.GetComponent<ProjectileSimple>();
             newWaveSimple.lifetime = StatValues.waveLifetime;
@@ -130,15 +140,15 @@ namespace ManipulatorMod.Modules
 
         private static void CreateWavesFire()
         {
-            waveFirePrefab = CreateNewWave("ManipulatorWaveFireProjectile", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation1, false);
-            waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false);
+            waveFirePrefab = CreateNewWave("ManipulatorWaveFireProjectile", DamageType.IgniteOnHit, "ManipulatorGhostFireWave", waveCoreSize, waveSize, StatValues.waveRotation1, false, Assets.waveImpactEffectFire);
+            waveFirePrefabAlt = CreateNewWave("ManipulatorWaveFireProjectileAlt", DamageType.IgniteOnHit, "ManipulatorGhostFireWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false, Assets.waveImpactEffectFireAlt);
         }
 
         private static void CreateWavesLightning()
         {
-            waveLightningPrefab = CreateNewWave("ManipulatorWaveLightningProjectile", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation1, false);
+            waveLightningPrefab = CreateNewWave("ManipulatorWaveLightningProjectile", DamageType.Generic, "ManipulatorGhostLightningWave", waveCoreSize, waveSize, StatValues.waveRotation1, false, Assets.waveImpactEffectFire);
             AddLightningWave(waveLightningPrefab);
-            waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false);
+            waveLightningPrefabAlt = CreateNewWave("ManipulatorWaveLightningProjectileAlt", DamageType.Generic, "ManipulatorGhostLightningWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, false, Assets.waveImpactEffectFireAlt);
             AddLightningWave(waveLightningPrefabAlt);
         }
 
@@ -174,8 +184,8 @@ namespace ManipulatorMod.Modules
 
         private static void CreateWavesIce()
         {
-            waveIcePrefab = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation1, true);
-            waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, true);
+            waveIcePrefab = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWave", waveCoreSize, waveSize, StatValues.waveRotation1, true, Assets.waveImpactEffectFire);
+            waveIcePrefabAlt = CreateNewWave("ManipulatorWaveIceProjectile", DamageType.Generic, "ManipulatorGhostIceWaveAlt", waveCoreSize, waveSize, StatValues.waveRotation2, true, Assets.waveImpactEffectFireAlt);
         }
 
         private static GameObject CreateBlinkExplosion(string newExplosionName, float newExplosionDelay, float newBlastRadius, float newBlastDamage, DamageType damageType, bool iceBuff)
@@ -312,15 +322,20 @@ namespace ManipulatorMod.Modules
             projectileImpactExplosion.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
         }
 
-        private static GameObject CreateGhostPrefab(string ghostName)
+        private static GameObject CreateGhostPrefab(string ghostName, bool convertShader)
         {
             GameObject ghostPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(ghostName);
             if (!ghostPrefab.GetComponent<NetworkIdentity>()) ghostPrefab.AddComponent<NetworkIdentity>();
             if (!ghostPrefab.GetComponent<ProjectileGhostController>()) ghostPrefab.AddComponent<ProjectileGhostController>();
 
-            Modules.Assets.ConvertAllRenderersToHopooShader(ghostPrefab);
+            if (convertShader) Modules.Assets.ConvertAllRenderersToHopooShader(ghostPrefab);
 
             return ghostPrefab;
+        }
+
+        private static GameObject CreateGhostPrefab(string ghostName)
+        {
+            return CreateGhostPrefab(ghostName, true);
         }
 
         private static GameObject CloneProjectilePrefab(string prefabName, string newPrefabName)

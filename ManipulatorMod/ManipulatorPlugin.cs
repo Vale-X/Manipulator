@@ -75,7 +75,7 @@ namespace ManipulatorMod
 
         private void Start()
         {
-            //Modules.Survivors.Manipulator.SetItemDisplays();
+            Modules.Survivors.Manipulator.SetItemDisplays();
         }
 
         public void AutoSprint()

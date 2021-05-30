@@ -48,6 +48,12 @@ namespace ManipulatorMod.Modules
             GameObject model = CreateModel(newPrefab, modelName);
             Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
 
+            /*ChildLocator childLocator = model.GetComponent<ChildLocator>();
+            Debug.LogWarning(childLocator);
+            GameObject muzzleEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterDisplays/MageDisplay").transform.Find("MuzzleRight").gameObject, modelName + "Muzzle");
+            Debug.LogWarning(muzzleEffect);
+            muzzleEffect.transform.parent = childLocator.FindChild("LeftHand").transform;*/
+
             model.AddComponent<CharacterModel>().baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
             Modules.Assets.ConvertAllRenderersToHopooShader(model);

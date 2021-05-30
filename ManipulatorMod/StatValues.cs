@@ -11,7 +11,7 @@ namespace ManipulatorMod
         //developer info
         public const string MODUID = "com.valex.ManipulatorMod";
         public const string MODNAME = "ManipulatorMod";
-        public const string MODVERSION = "0.3.2";
+        public const string MODVERSION = "0.3.4";
 
         //character info
         public const string characterName = "Manipulator";
@@ -29,7 +29,7 @@ namespace ManipulatorMod
         //Base stats
         public const float baseHealth = 90f;
         public const float baseRegen = 2.5f;
-        public const float baseArmor = 0f;
+        public const float baseArmor = 12f;
         public const float baseShield = 0f;
         public const float baseMoveSpeed = 7f;
         public const float baseAcceleration = 40f;
@@ -64,7 +64,7 @@ namespace ManipulatorMod
         public const float chillDebuffSlowMax = 0.75f;
         public static readonly float chillDebuffAttackMax = Modules.Config.attackSlowMulti.Value;
         public const float chillDebuffDuration = 8f;
-        public const int chillDebuffMaxStacks = 10;
+        public const int chillDebuffMaxStacks = 8;
         public const float freezeDamage = 0f;
 
         //Primary
