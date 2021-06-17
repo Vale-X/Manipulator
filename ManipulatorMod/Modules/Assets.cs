@@ -7,6 +7,7 @@ using System.IO;
 using RoR2.Audio;
 using System.Collections.Generic;
 using RoR2.UI;
+using StubbedConverter;
 
 namespace ManipulatorMod.Modules
 {
@@ -61,6 +62,7 @@ namespace ManipulatorMod.Modules
             mageFireMat = GetMageFireMaterial();
 
             ConvertAllBundleShaders();
+            //ShaderConvert.ConvertAllBundleShaders(mainAssetBundle);
 
             waveImpactEffectFire = LoadEffect("ManipulatorWaveImpactFire", 1.5f);
             waveImpactEffectFireAlt = LoadEffect("ManipulatorWaveImpactFireAlt", 1.5f);

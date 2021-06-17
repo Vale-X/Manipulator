@@ -81,6 +81,9 @@
     <Reference Include="ScrollableLobbyUI">
       <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\test\BepInEx\plugins\KingEnderBrine-ScrollableLobbyUI\ScrollableLobbyUI\ScrollableLobbyUI.dll</HintPath>
     </Reference>
+    <Reference Include="StubbedShaderConverter">
+      <HintPath>..\libs\StubbedShaderConverter.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\libs\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
