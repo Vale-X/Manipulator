@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fea75b8c91369d459c715384e1ef3ab, type: 3}
+  m_Name: VentSkillDef
+  m_EditorClassIdentifier: 
+  skillName: Manipulator.Venting Step
+  skillNameToken: VALE_MANIPULATOR_BODY_UTILITY_BLINK_NAME
+  skillDescriptionToken: VALE_MANIPULATOR_BODY_UTILITY_BLINK_DESCRIPTION
+  keywordTokens:
+  - KEYWORD_MANI_FIREEFFECT
+  - KEYWORD_MANI_LIGHTNINGEFFECT
+  - KEYWORD_MANI_ICEEFFECT
+  icon: {fileID: 21300000, guid: 2aca2cc7b136cf847b165c3abe18660f, type: 3}
+  activationStateMachineName: Body
+  activationState:
+    _typeName: ManipulatorMod.SkillStates.ElementalBlinkFire, ManipulatorMod
+  interruptPriority: 2
+  baseRechargeInterval: 6
+  baseMaxStock: 1
+  rechargeStock: 1
+  requiredStock: 1
+  stockToConsume: 1
+  resetCooldownTimerOnUse: 0
+  fullRestockOnAssign: 1
+  dontAllowPastMaxStocks: 0
+  beginSkillCooldownOnSkillEnd: 0
+  cancelSprintingOnActivation: 0
+  forceSprintDuringState: 1
+  canceledFromSprinting: 0
+  isCombatSkill: 1
+  mustKeyPress: 0
+  shouldUseTracker: 0
+  trackerElement: 0
+  icons:
+  - {fileID: 21300000, guid: 2aca2cc7b136cf847b165c3abe18660f, type: 3}
+  - {fileID: 21300000, guid: a900213707068ba409ad325de52a9ada, type: 3}
+  - {fileID: 21300000, guid: 1efb47cd8a7a0c944af3a5659d6e7ed1, type: 3}
+  - {fileID: 21300000, guid: 5806aedfefb2a324abb86fc5994be3cb, type: 3}
+  elementalEntityStates:
+  - _typeName: ManipulatorMod.SkillStates.ElementalBlinkFire, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalBlinkFire, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalBlinkLightning, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalBlinkIce, ManipulatorMod
+  useElementalTokens: 0
+  elementalNames: []
+  elementalDescriptions: []

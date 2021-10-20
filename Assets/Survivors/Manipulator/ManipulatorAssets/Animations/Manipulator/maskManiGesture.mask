@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: maskManiGesture
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: base
+    m_Weight: 0
+  - m_Path: base/pelvis
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_l
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_l/cloth_2_l
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_l/cloth_2_l/cloth_3_l
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_l/cloth_2_l/cloth_3_l/cloth_4_l
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_l/cloth_2_l/cloth_3_l/cloth_4_l/cloth_4_l_end
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_r
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_r/cloth_2_r
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_r/cloth_2_r/cloth_3_r
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_r/cloth_2_r/cloth_3_r/cloth_4_r
+    m_Weight: 0
+  - m_Path: base/pelvis/cloth_1_r/cloth_2_r/cloth_3_r/cloth_4_r/cloth_4_r_end
+    m_Weight: 0
+  - m_Path: base/pelvis/stomach
+    m_Weight: 0
+  - m_Path: base/pelvis/stomach/stomach2
+    m_Weight: 0
+  - m_Path: base/pelvis/stomach/stomach2/chest
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_1_1_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_1_1_l/finger_1_2_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_1_1_l/finger_1_2_l/finger_1_3_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_1_1_l/finger_1_2_l/finger_1_3_l/finger_1_3_l_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_2_1_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_2_1_l/finger_2_2_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_2_1_l/finger_2_2_l/finger_2_3_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_2_1_l/finger_2_2_l/finger_2_3_l/finger_2_3_l_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_3_1_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_3_1_l/finger_3_2_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_3_1_l/finger_3_2_l/finger_3_3_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_3_1_l/finger_3_2_l/finger_3_3_l/finger_3_3_l_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_4_1_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_4_1_l/finger_4_2_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_4_1_l/finger_4_2_l/finger_4_3_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/finger_4_1_l/finger_4_2_l/finger_4_3_l/finger_4_3_l_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/thumb_1_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/thumb_1_l/thumb_2_l
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_l/upper_arm_l/lower_arm_l/hand_l/thumb_1_l/thumb_2_l/thumb_2_l_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_1_1_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_1_1_r/finger_1_2_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_1_1_r/finger_1_2_r/finger_1_3_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_1_1_r/finger_1_2_r/finger_1_3_r/finger_1_3_r_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_2_1_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_2_1_r/finger_2_2_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_2_1_r/finger_2_2_r/finger_2_3_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_2_1_r/finger_2_2_r/finger_2_3_r/finger_2_3_r_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_3_1_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_3_1_r/finger_3_2_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_3_1_r/finger_3_2_r/finger_3_3_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_3_1_r/finger_3_2_r/finger_3_3_r/finger_3_3_r_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_4_1_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_4_1_r/finger_4_2_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_4_1_r/finger_4_2_r/finger_4_3_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/finger_4_1_r/finger_4_2_r/finger_4_3_r/finger_4_3_r_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/SwordTip
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/trail_1
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/trail_1/trail_2
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/trail_1/trail_2/trail_3
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/trail_1/trail_2/trail_3/trail_4
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/MainWeapon/trail_1/trail_2/trail_3/trail_4/trail_4_end
+    m_Weight: 0
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/thumb_1_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/thumb_1_r/thumb_2_r
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/clavicle_r/upper_arm_r/lower_arm_r/hand_r/thumb_1_r/thumb_2_r/thumb_2_r_end
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/neck
+    m_Weight: 1
+  - m_Path: base/pelvis/stomach/stomach2/chest/neck/head
+    m_Weight: 1
+  - m_Path: base/pelvis/tail
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2/tail_3
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2/tail_3/tail_4
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2/tail_3/tail_4/tail_5
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6
+    m_Weight: 0
+  - m_Path: base/pelvis/tail/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6/tail_6_end
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_l
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_l/calf_l
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_l/calf_l/foot_l
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_l/calf_l/foot_l/toe_l
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_r
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_r/calf_r
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_r/calf_r/foot_r
+    m_Weight: 0
+  - m_Path: base/pelvis/thigh_r/calf_r/foot_r/toe_r
+    m_Weight: 0
+  - m_Path: meshManipulator
+    m_Weight: 0
+  - m_Path: meshManipulatorBelt
+    m_Weight: 0
+  - m_Path: meshManipulatorSword
+    m_Weight: 0

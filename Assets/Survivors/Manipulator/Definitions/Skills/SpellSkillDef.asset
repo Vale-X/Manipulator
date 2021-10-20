@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fea75b8c91369d459c715384e1ef3ab, type: 3}
+  m_Name: SpellSkillDef
+  m_EditorClassIdentifier: 
+  skillName: Manipulator.Invoke
+  skillNameToken: VALE_MANIPULATOR_BODY_SECONDARY_SPELL_NAME
+  skillDescriptionToken: VALE_MANIPULATOR_BODY_SECONDARY_SPELL_DESCRIPTION
+  keywordTokens:
+  - KEYWORD_MANI_FIRESPELL
+  - KEYWORD_MANI_LIGHTNINGSPELL
+  - KEYWORD_MANI_ICESPELL
+  icon: {fileID: 21300000, guid: 10ed4b92b93d24c44a448bbe98fe13b1, type: 3}
+  activationStateMachineName: Weapon
+  activationState:
+    _typeName: ManipulatorMod.SkillStates.ElementalSpellFire, ManipulatorMod
+  interruptPriority: 1
+  baseRechargeInterval: 6
+  baseMaxStock: 1
+  rechargeStock: 1
+  requiredStock: 1
+  stockToConsume: 1
+  resetCooldownTimerOnUse: 0
+  fullRestockOnAssign: 1
+  dontAllowPastMaxStocks: 0
+  beginSkillCooldownOnSkillEnd: 1
+  cancelSprintingOnActivation: 1
+  forceSprintDuringState: 0
+  canceledFromSprinting: 0
+  isCombatSkill: 1
+  mustKeyPress: 1
+  shouldUseTracker: 1
+  trackerElement: 2
+  icons:
+  - {fileID: 21300000, guid: 10ed4b92b93d24c44a448bbe98fe13b1, type: 3}
+  - {fileID: 21300000, guid: 7143364736c841d4ea59a24b8fb7f20f, type: 3}
+  - {fileID: 21300000, guid: 4cfb572d7c8c84649b7a8623a87aec73, type: 3}
+  - {fileID: 21300000, guid: beec29d5589194f4f84c6bca639a7f57, type: 3}
+  elementalEntityStates:
+  - _typeName: ManipulatorMod.SkillStates.ElementalSpellFire, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalSpellFire, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalSpellLightning, ManipulatorMod
+  - _typeName: ManipulatorMod.SkillStates.ElementalSpellIce, ManipulatorMod
+  useElementalTokens: 1
+  elementalNames:
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_NAME
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_FIRE_NAME
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_LIGHTNING_NAME
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_ICE_NAME
+  elementalDescriptions:
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_FIRE_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_LIGHTNING_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SECONDARY_SPELL_ICE_DESCRIPTION

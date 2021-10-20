@@ -1,0 +1,32 @@
+{
+    "originalSdkFolder": "E:\\All Coding Stuff\\RoR2 Modding\\Wwise 2018.1.11.6987",
+    "currentVersion": {
+        "build": 1466,
+        "major": 1,
+        "minor": 11,
+        "nickname": "",
+        "year": 2018
+    },
+    "installedBundleGroups": [
+        {
+            "id": "Packages",
+            "valueId": "Unity"
+        },
+        {
+            "id": "Packages",
+            "valueId": "Extensions"
+        },
+        {
+            "id": "DeploymentPlatforms",
+            "valueId": "Mac"
+        },
+        {
+            "id": "DeploymentPlatforms",
+            "valueId": "Linux"
+        },
+        {
+            "id": "DeploymentPlatforms",
+            "valueId": "Windows"
+        }
+    ]
+}

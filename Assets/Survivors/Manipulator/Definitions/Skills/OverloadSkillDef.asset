@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fea75b8c91369d459c715384e1ef3ab, type: 3}
+  m_Name: OverloadSkillDef
+  m_EditorClassIdentifier: 
+  skillName: Manipulator.Overload
+  skillNameToken: VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_NAME
+  skillDescriptionToken: VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_DESCRIPTION
+  keywordTokens:
+  - KEYWORD_MANI_FIREEFFECT
+  - KEYWORD_MANI_LIGHTNINGEFFECT
+  - KEYWORD_MANI_ICEEFFECT
+  icon: {fileID: 21300000, guid: 76c0a1310568f704281c7ef033cf5dac, type: 3}
+  activationStateMachineName: Spell
+  activationState:
+    _typeName: ManipulatorMod.SkillStates.ElementalOverloadFire, ManipulatorMod, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  interruptPriority: 2
+  baseRechargeInterval: 6
+  baseMaxStock: 1
+  rechargeStock: 1
+  requiredStock: 1
+  stockToConsume: 1
+  resetCooldownTimerOnUse: 0
+  fullRestockOnAssign: 1
+  dontAllowPastMaxStocks: 0
+  beginSkillCooldownOnSkillEnd: 0
+  cancelSprintingOnActivation: 1
+  forceSprintDuringState: 0
+  canceledFromSprinting: 0
+  isCombatSkill: 1
+  mustKeyPress: 1
+  shouldUseTracker: 0
+  trackerElement: 0
+  icons:
+  - {fileID: 21300000, guid: 76c0a1310568f704281c7ef033cf5dac, type: 3}
+  - {fileID: 21300000, guid: 1d535f3079204c549951079429621d1f, type: 3}
+  - {fileID: 21300000, guid: 402d422e04937244cb7d74e515b25c9f, type: 3}
+  - {fileID: 21300000, guid: 808cfd43d2cc96046890c80dfaf94ccf, type: 3}
+  elementalEntityStates:
+  - _typeName: ManipulatorMod.SkillStates.ElementalOverloadFire, ManipulatorMod, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - _typeName: ManipulatorMod.SkillStates.ElementalOverloadFire, ManipulatorMod, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - _typeName: ManipulatorMod.SkillStates.ElementalOverloadLightning, ManipulatorMod,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - _typeName: ManipulatorMod.SkillStates.ElementalOverloadIce, ManipulatorMod, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  useElementalTokens: 0
+  elementalNames:
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_NAME
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_FIRE_NAME
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_LIGHTNING_NAME
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_ICE_NAME
+  elementalDescriptions:
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_FIRE_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_LIGHTNING_DESCRIPTION
+  - VALE_MANIPULATOR_BODY_SPECIAL_OVERLOAD_ICE_DESCRIPTION

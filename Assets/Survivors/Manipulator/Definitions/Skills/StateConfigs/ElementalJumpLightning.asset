@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 89795172, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: ElementalJumpLightning
+  m_EditorClassIdentifier: 
+  targetType:
+    assemblyQualifiedName: ManipulatorMod.SkillStates.ElementalJumpLightning, ManipulatorMod,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  serializedFieldsCollection:
+    serializedFields:
+    - fieldName: duration
+      fieldValue:
+        stringValue: 1
+        objectValue: {fileID: 0}
+    - fieldName: blastAttackRadius
+      fieldValue:
+        stringValue: 8
+        objectValue: {fileID: 0}
+    - fieldName: blastAttackProcCoefficient
+      fieldValue:
+        stringValue: 1
+        objectValue: {fileID: 0}
+    - fieldName: blastAttackDamageCoefficient
+      fieldValue:
+        stringValue: 1.5
+        objectValue: {fileID: 0}
+    - fieldName: blastAttackForce
+      fieldValue:
+        stringValue: 1500
+        objectValue: {fileID: 0}
+    - fieldName: blastDamageType
+      fieldValue:
+        stringValue: 0
+        objectValue: {fileID: 0}
+    - fieldName: beginSoundString
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 0}
+    - fieldName: endSoundString
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 0}
+    - fieldName: explosionPrefab
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 9051062799578878964, guid: 9d5985c23c4528e4a89f4c8a70196ce9,
+          type: 3}
+    - fieldName: blinkPrefab
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 0}
+    - fieldName: muzzleflashEffect
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 0}
+    - fieldName: speedCoefficientCurve
+      fieldValue:
+        stringValue: '{"preWrapMode":8,"postWrapMode":8,"keys":[{"time":0.10000000149011612,"value":7.0,"inTangent":Infinity,"outTangent":Infinity,"inWeight":0.3333333432674408,"outWeight":0.3333333432674408,"weightedMode":0,"tangentMode":7},{"time":0.3125125765800476,"value":7.0,"inTangent":-28.327960968017579,"outTangent":-28.327960968017579,"inWeight":0.3333333432674408,"outWeight":0.3333333432674408,"weightedMode":0,"tangentMode":0},{"time":1.0,"value":0.0,"inTangent":0.0,"outTangent":0.0,"inWeight":0.0,"outWeight":0.0,"weightedMode":0,"tangentMode":0}]}'
+        objectValue: {fileID: 0}
+    - fieldName: speedCoefficient
+      fieldValue:
+        stringValue: 0.4
+        objectValue: {fileID: 0}
