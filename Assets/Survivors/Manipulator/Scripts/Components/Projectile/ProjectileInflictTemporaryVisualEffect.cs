@@ -15,11 +15,24 @@ namespace ManipulatorMod.Modules.Components
         public bool useBestFitRadius;
         [Tooltip("Can multiple of the same TemporaryVisualEffect be applied to the same target?")]
         public bool canStack;
+        [Tooltip("If the TVE already exists on the target, reset the duration of the TVE?")]
+        public bool refreshDuration;
+        [Tooltip("If the TVE already exists on the target, add the duration onto it?")]
+        public bool addDuration;
 
         private List<TemporaryVisualEffect> visualEffects = new List<TemporaryVisualEffect>();
+        private static Dictionary<TemporaryVisualEffect, TemporaryVisualEffectInstanceController> visualControllers = new Dictionary<TemporaryVisualEffect, TemporaryVisualEffectInstanceController>();
 
         public void OnDamageInflictedServer(DamageReport damageReport)
         {
+            // Clean up the dictionary a bit.
+            foreach (KeyValuePair<TemporaryVisualEffect, TemporaryVisualEffectInstanceController> entry in visualControllers)
+            {
+                if (entry.Key == null || entry.Value == null)
+                {
+                    visualControllers.Remove(entry.Key);
+                }
+            }
             CharacterBody victim = damageReport.victimBody;
             if (victim)
             {
@@ -29,13 +42,22 @@ namespace ManipulatorMod.Modules.Components
 
         private void AddTVE(CharacterBody target, float duration)
         {
-            if (!this.canStack && this.visualEffects.Count > 0)
+            foreach (TemporaryVisualEffect effect in visualEffects)
             {
-                foreach (TemporaryVisualEffect effect in this.visualEffects)
+                if (effect != null)
                 {
-                    if (effect != null)
+                    if (effect.parentTransform == target.coreTransform)
                     {
-                        if (effect.parentTransform = target.coreTransform)
+                        visualControllers.TryGetValue(effect, out TemporaryVisualEffectInstanceController foundController);
+                        if (addDuration)
+                        {
+                            foundController.AddDuration(duration);
+                        }
+                        if (refreshDuration)
+                        {
+                            foundController.RefreshDuration();
+                        }
+                        if (!canStack)
                         {
                             return;
                         }
@@ -62,8 +84,10 @@ namespace ManipulatorMod.Modules.Components
                     localCameraEffect.targetCharacter = target.gameObject;
                 }
                 var effectController = effectObject.AddComponent<TemporaryVisualEffectInstanceController>();
-                effectController.duration = duration;
+                effectController.startDuration = duration;
+                effectController.temporaryVisualEffect = tempEffect;
                 this.visualEffects.Add(tempEffect);
+                visualControllers.Add(tempEffect, effectController);
             }
             else { Debug.LogError(base.gameObject + ": ProjectileTemporaryVisualEffect: Unable to Instantiate TemporaryVisualEffectPrefab."); return; }
         }
@@ -72,7 +96,7 @@ namespace ManipulatorMod.Modules.Components
         {
             if (this.endEffectsOnDestroy)
             {
-                foreach (TemporaryVisualEffect effect in this.visualEffects)
+                foreach (TemporaryVisualEffect effect in visualEffects)
                 {
                     if (effect != null)
                     {

@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "com.passivepicasso.thunderkit": "https://github.com/PassivePicasso/ThunderKit.git",
-    "com.passivepicasso.unitygameimporter": "https://github.com/PassivePicasso/GameImporter.git",
     "com.unity.package-manager-ui": "2.0.8",
     "com.unity.textmeshpro": "1.4.1",
     "com.unity.modules.ai": "1.0.0",
@@ -38,11 +37,7 @@
   "lock": {
     "com.passivepicasso.thunderkit": {
       "revision": "HEAD",
-      "hash": "e9eb44176ef50d0b77272cd49a500ee6ab8ac1a3"
-    },
-    "com.passivepicasso.unitygameimporter": {
-      "revision": "HEAD",
-      "hash": "eab35ae74db2b706dbd84718e6d1991e7fb5bc0a"
+      "hash": "c1128579abd4579a16062e1d0cda8a59c6cf46b3"
     }
   }
 }

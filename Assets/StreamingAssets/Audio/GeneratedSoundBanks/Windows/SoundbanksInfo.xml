@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="132">
+	<RootPaths>
+		<ProjectRoot>D:\TK\ThunderkitManipulator\ManipulatorSounds\</ProjectRoot>
+		<SourceFilesRoot>D:\TK\ThunderkitManipulator\ManipulatorSounds\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\TK\ThunderkitManipulator\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>D:\TK\ThunderkitManipulator\ManipulatorSounds\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="1416593635" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\SB_Manipulator</ObjectPath>
+			<ShortName>SB_Manipulator</ShortName>
+			<Path>SB_Manipulator.bnk</Path>
+			<IncludedEvents>
+				<Event Id="204091665" Name="Play_mani_blackbox_ping" ObjectPath="\Events\Default Work Unit\Mani\Play_mani_blackbox_ping"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="906892482" Language="SFX">
+					<ShortName>BlackBoxPing2.wav</ShortName>
+					<Path>SFX\BlackBoxPing2_A1793BE9.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

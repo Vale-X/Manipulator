@@ -45,6 +45,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
         protected NetworkSoundEventIndex impactSoundIndex;
 
         private float earlyExitTime;
+        private bool hasOverload;
         protected float launchTime;
         public float duration;
         public bool hasFiredAttack;
@@ -66,6 +67,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
             this.launchTime = this.baseLaunchTime / this.attackSpeedStat;
             this.earlyExitTime = this.baseEarlyExitTime / this.attackSpeedStat;
             this.hasFiredAttack = false;
+            this.hasOverload = base.characterBody.HasBuff(Buffs.overloadBuff);
             this.animator = base.GetModelAnimator();
             base.StartAimMode(0.5f + this.duration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
@@ -87,7 +89,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
             this.attack.attacker = base.gameObject;
             this.attack.inflictor = base.gameObject;
             this.attack.teamIndex = base.GetTeam();
-            this.attack.damage = this.damageCoefficient * this.damageStat;
+            this.attack.damage = (this.damageStat * this.damageCoefficient) * (characterBody.HasBuff(Buffs.overloadBuff) ? 3f : 1f);
             this.attack.procCoefficient = this.procCoefficient;
             this.attack.hitEffectPrefab = this.hitEffectPrefab;
             this.attack.forceVector = this.bonusForce;
@@ -187,28 +189,30 @@ namespace ManipulatorMod.SkillStates.BaseStates
 
         protected virtual void FireProjectile()
         {
-
-            if (!this.hasFiredWave && (this.meleeStopwatch >= this.launchTime))
+            if (!hasOverload)
             {
-                this.hasFiredWave = true;
-                if (base.isAuthority)
+                if (!this.hasFiredWave && (this.meleeStopwatch >= this.launchTime))
                 {
-                    GameObject tempPrefab = this.wavePrefab;
-                    SetChildRotation rot = tempPrefab.GetComponent<SetChildRotation>();
-                    rot.SetRotation("RotatedCollider", Quaternion.Euler(this.swingIndex == 0 ? new Vector3(0f, 0f, -30f) : new Vector3(0f, 0f, 30f)));
+                    if (base.isAuthority)
+                    {
+                        GameObject tempPrefab = this.wavePrefab;
+                        SetChildRotation rot = tempPrefab.GetComponent<SetChildRotation>();
+                        rot.SetRotation("RotatedCollider", Quaternion.Euler(this.swingIndex == 0 ? new Vector3(0f, 0f, -30f) : new Vector3(0f, 0f, 30f)));
 
-                    Ray aimRay = base.GetAimRay();
-                    ProjectileManager.instance.FireProjectile(tempPrefab, //(this.swingIndex == 1 ? this.wavePrefab : this.wavePrefabAlt)
-                        aimRay.origin,
-                        Util.QuaternionSafeLookRotation(aimRay.direction),
-                        base.gameObject,
-                        StaticValues.waveDamageCoefficient * this.damageStat,
-                        StaticValues.waveForce,
-                        base.RollCrit(),
-                        DamageColorIndex.Default,
-                        null);
+                        Ray aimRay = base.GetAimRay();
+                        ProjectileManager.instance.FireProjectile(tempPrefab, //(this.swingIndex == 1 ? this.wavePrefab : this.wavePrefabAlt)
+                            aimRay.origin,
+                            Util.QuaternionSafeLookRotation(aimRay.direction),
+                            base.gameObject,
+                            StaticValues.waveDamageCoefficient * this.damageStat,
+                            StaticValues.waveForce,
+                            base.RollCrit(),
+                            DamageColorIndex.Default,
+                            null);
+                    }
                 }
             }
+            this.hasFiredWave = true;
         }
 
         protected virtual void OnHitEnemyAuthority(List<HealthComponent> healthList)

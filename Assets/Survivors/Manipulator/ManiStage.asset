@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ManiStage
   m_EditorClassIdentifier: 
   Data:
+  - {fileID: 114846045509929136}
   - {fileID: 114520525572577756}
   - {fileID: 114643622350610336}
   - {fileID: 114537630434205182}
   - {fileID: 114366308522735304}
   - {fileID: 114989238070568616}
-  manifest: {fileID: 11400000, guid: a588f9e880162aa49a22c6b4b92318fb, type: 2}
+  manifest: {fileID: 11400000, guid: 36c96cbab0bfc512eebfbe44392fe88f, type: 2}
 --- !u!114 &114366308522735304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33,6 +34,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 1
 --- !u!114 &114520525572577756
 MonoBehaviour:
@@ -48,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 1
   AssetBundleBuildOptions: 256
   buildTarget: 5
@@ -68,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 0
   StagingPath: <StagingRoot>
   ExcludedManifests: []
@@ -85,9 +89,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 1
   stageDebugDatabases: 1
-  preferPlayerBuilds: 0
+  assemblyArtifactPath: <AssemblyStaging>
+  buildTarget: 5
+  buildTargetGroup: 1
+--- !u!114 &114846045509929136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d65cc226c348d45aa1c6dddf3600a6, type: 3}
+  m_Name: Delete
+  m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
+  ErrorStacktrace: 
+  Active: 1
+  PerManifest: 1
+  ExcludedManifests:
+  - {fileID: 11400000, guid: 7fb5b3d290bed6011ed7e8daf230df89, type: 2}
+  - {fileID: 11400000, guid: fc1a9cea8da3e97d5a469b16c8febcf7, type: 2}
+  - {fileID: 11400000, guid: 2d4d09ec817c24698d35dc9bf0704fdc, type: 2}
+  - {fileID: 11400000, guid: 9bbff6449e1a5460d6b9712c3ecebc9c, type: 2}
+  - {fileID: 11400000, guid: bff73382628f698c89c1d9ae43c8f350, type: 2}
+  - {fileID: 11400000, guid: b0ef017d0a5aeb7c881eb0630dfa66d3, type: 2}
+  Recursive: 1
+  IsFatal: 0
+  Path: 
 --- !u!114 &114888345249068578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 1
 --- !u!114 &114989238070568616
 MonoBehaviour:
@@ -117,14 +152,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Errored: 0
   ErrorMessage: 
+  ErrorStacktrace: 
   Active: 1
   PerManifest: 1
   ExcludedManifests:
-  - {fileID: 11400000, guid: c8c954e10545f6cd0045de066bc4846b, type: 2}
-  - {fileID: 11400000, guid: db33d5b068040b5c2782085d4dcc86a1, type: 2}
-  - {fileID: 11400000, guid: 6893422731aa6d67012f5f4d8209c304, type: 2}
-  - {fileID: 11400000, guid: 8c9723f54a9077defbd277e7d46281d2, type: 2}
+  - {fileID: 11400000, guid: 7fb5b3d290bed6011ed7e8daf230df89, type: 2}
+  - {fileID: 11400000, guid: fc1a9cea8da3e97d5a469b16c8febcf7, type: 2}
+  - {fileID: 11400000, guid: 9bbff6449e1a5460d6b9712c3ecebc9c, type: 2}
+  - {fileID: 11400000, guid: bff73382628f698c89c1d9ae43c8f350, type: 2}
+  - {fileID: 11400000, guid: b0ef017d0a5aeb7c881eb0630dfa66d3, type: 2}
+  - {fileID: 11400000, guid: 2d4d09ec817c24698d35dc9bf0704fdc, type: 2}
   Recursive: 1
   SourceRequired: 1
+  EstablishDestination: 1
   Source: <StagePath>
   Destination: <ValePath>

@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.Networking;
 using UnityEngine.Networking;
 using StubbedConverter;
+using ManipulatorMod.Achievements;
 
 namespace ManipulatorMod.Modules
 {
@@ -120,9 +121,32 @@ namespace ManipulatorMod.Modules
         {
             if (sceneName == "moon2")
             {
-                GameObject BlackBox = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ManiBoxScene"), new Vector3(115.72f, -182.62f, -13.99f), Quaternion.Euler(Vector3.zero));
+                GameObject blackBox = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ManiBoxScene"), new Vector3(115.72f, -182.62f, -13.99f), Quaternion.Euler(Vector3.zero));
 
-                StubbedConverter.MaterialController.AddMaterialController(BlackBox);
+                //StubbedConverter.MaterialController.AddMaterialController(BlackBox);
+
+                if (NetworkServer.active)
+                {
+                    bool allPlayersHaveMani = true;
+                    var networkUsers = GameNetworkManager.GetConnectionNetworkUsers(GameNetworkManager.singleton.client.connection).ToList();
+                    for (int i = 0; i < networkUsers.Count; i++)
+                    {
+                        if (!AchievementManager.GetUserAchievementManager(networkUsers[i].localUser).userProfile.HasAchievement("VALE_MANIPULATOR_BODY_UNLOCK_SURVIVOR_ID"))
+                        {
+                            allPlayersHaveMani = false;
+                        }
+                    }
+                    if (allPlayersHaveMani == true) blackBox.gameObject.GetComponentInChildren<GenericInteraction>().gameObject.SetActive(false);
+                }
+                else
+                {
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (AchievementManager.GetUserAchievementManager(localUser).userProfile.HasAchievement("VALE_MANIPULATOR_BODY_UNLOCK_SURVIVOR_ID") || Config.forceUnlock.Value)
+                    {
+                        blackBox.gameObject.GetComponentInChildren<GenericInteraction>().gameObject.SetActive(false);
+
+                    }
+                }
             }
         }
 

@@ -20,7 +20,7 @@ MonoBehaviour:
   - KEYWORD_MANI_FIREEFFECT
   - KEYWORD_MANI_LIGHTNINGEFFECT
   - KEYWORD_MANI_ICEEFFECT
-  icon: {fileID: 21300000, guid: 9c5420244dcc5ca4eb2a2bb9c45109b3, type: 3}
+  icon: {fileID: 21300000, guid: c53b196eff3555844abf7d8793c8f6ec, type: 3}
   activationStateMachineName: Weapon
   activationState:
     _typeName: ManipulatorMod.SkillStates.ElementalSlashFire, ManipulatorMod
@@ -42,10 +42,10 @@ MonoBehaviour:
   shouldUseTracker: 0
   trackerElement: 0
   icons:
-  - {fileID: 21300000, guid: 9c5420244dcc5ca4eb2a2bb9c45109b3, type: 3}
-  - {fileID: 21300000, guid: 3953af06de3b90547bd6a4b4336914de, type: 3}
-  - {fileID: 21300000, guid: f3ef8a07378b59a47970bd420f862acf, type: 3}
-  - {fileID: 21300000, guid: d22629f239a0d5244847dddcf6c60bed, type: 3}
+  - {fileID: 21300000, guid: c53b196eff3555844abf7d8793c8f6ec, type: 3}
+  - {fileID: 21300000, guid: c53b196eff3555844abf7d8793c8f6ec, type: 3}
+  - {fileID: 21300000, guid: ab6e496557487e149ac92861536a814f, type: 3}
+  - {fileID: 21300000, guid: e5a43fae2403d2d49acbdf266f3a01ae, type: 3}
   elementalEntityStates:
   - _typeName: ManipulatorMod.SkillStates.ElementalSlashFire, ManipulatorMod
   - _typeName: ManipulatorMod.SkillStates.ElementalSlashFire, ManipulatorMod

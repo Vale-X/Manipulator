@@ -14,7 +14,9 @@
         "Mono.Cecil.dll",
         "MonoMod.Utils.dll",
         "HGCSharpUtils.dll",
-        "StubbedShaderConverter.dll"
+        "StubbedShaderConverter.dll",
+        "Wwise.dll",
+        "BetterUI.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": []

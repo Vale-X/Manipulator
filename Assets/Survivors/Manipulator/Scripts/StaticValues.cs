@@ -26,51 +26,61 @@ namespace ManipulatorMod.Modules
 
         // Primary
         internal const float crossDuration = 1f;
-        internal const float crossDamageCoefficient = 1.5f;
+        internal const float crossDamageCoefficient = 1.25f;
         internal const float crossProcCoefficient = 1f;
         internal const float crossPushForce = 300f;
         internal const float crossStartTime = 0.2f;
         internal const float crossEndTime = 0.35f;
-        internal const float crossEarlyExitTime = 0.4f;
+        internal const float crossEarlyExitTime = 0.3f;
         internal const float crossHitStopDuration = 0.012f;
         internal const float crossAttackRecoil = 0.75f;
         internal const float crossHitHopVelocity = 4f;
 
 
-        internal const float waveDamageCoefficient = 1.5f;
+        internal const float waveDamageCoefficient = 1f;
         internal const float waveLaunchTime = 0.15f;
         internal const float waveForce = 10f;
 
         // Secondary
-        internal const float fireSpellDamageCoefficient = 5f;
-        internal const float fireTickDamageCoefficient = 2f;
+        internal const float fireSpellDamageCoefficient = 4f;
+        internal const float fireTickDamageCoefficient = 1.5f;
         internal const float fireAttachTickMax = 5;
         internal const float fireSpellForce = 10f;
         internal const float fireAttachTickInterval = 1f;
 
         internal const float lightningDamageCoefficient = 3f;
-        internal const float lightningBounceDamageMulti = 1f;
+        internal const float lightningBounceDamageMulti = 0.9f;
         internal const float lightningProcCoefficient = 0.5f;
         internal const float lightningBounceRange = 30f;
         internal const int lightningBounceCount = 6;
 
-        internal const float icePillarDamageCoefficient = 4f;
+        internal const float icePillarDamageCoefficient = 2f;
+        internal const float iceExplosionDamageCoefficient = 4f;
         internal const float icePillarMaxRange = 50f;
         internal const float icePillarMaxSlope = 45f;
         internal static readonly Vector3 icePillarIndicatorSize = new Vector3(3.5f, 10f, 3.5f);
 
         // Utility
-        internal const float explosionDamageCoefficient = 4f;
+        internal const float explosionDamageCoefficient = 2.5f;
         internal const float blinkSpeedCoefficient = 8f;
-        internal const float blinkDuration = 0.3f;
+        internal const float blinkDuration = 0.2f;
 
-        internal const float jumpDamageCoefficient = 2f;
+        // Utility Alt1
+        internal const float jumpDuration = 1f;
+        internal const float jumpDamageCoefficient = 1.5f;
+        internal const float jumpProcCoefficient = 1f;
+        internal const float jumpAttackForce = 400f;
+        internal const float jumpSpeedCoefficient = 0.4f;
 
         // Special
         internal const float switchDuration = 0.1f;
 
-        internal const float burstBuffDuration = 5f;
-        internal const float burstDamageCoefficient = 6f;
+        // Special Alt1
+        internal const float overloadBuffDuration = 4f;
+        internal const float OverloadSpeedBuffMulti = 0.3f;
+        internal const float OverloadAttackBuffMulti = 0.3f;
+        internal const float overloadSlashMulti = 2.5f;
+        internal const float burstDamageCoefficient = 4f;
 
         // Special Bonus
         internal const float fireBuffDamageMulti = 0.2f;

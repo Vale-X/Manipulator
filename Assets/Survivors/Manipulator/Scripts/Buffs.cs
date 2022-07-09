@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace ManipulatorMod.Modules
         internal static BuffDef lightningBuff;
         internal static BuffDef iceBuff;
         internal static BuffDef jetBuff;
+        internal static BuffDef overloadBuff;
 
         // "Debuffs"
         internal static BuffDef chillDebuff;
@@ -32,20 +34,35 @@ namespace ManipulatorMod.Modules
         // Order should be the same as the SerializedContentPack BuffDefs list.
         private static void CollectBuffs()
         {
-            fireBuff = GetBuff("ManipulatorSwitchFireBuff");
-            lightningBuff = GetBuff("ManipulatorSwitchLightningBuff");
-            iceBuff = GetBuff("ManipulatorSwitchIceBuff");
-            jetBuff = GetBuff("ManipulatorJetpackBuff");
-            chillDebuff = GetBuff("ManipulatorChillDebuff");
-            chillCooldown = GetBuff("ManipulatorChillCooldown");
+            fireBuff = GetBuff("ManipulatorSwitchFireBuff", "FIRE");
+            lightningBuff = GetBuff("ManipulatorSwitchLightningBuff", "LIGHTNING");
+            iceBuff = GetBuff("ManipulatorSwitchIceBuff", "ICE");
+            jetBuff = GetBuff("ManipulatorJetpackBuff", "JETPACK");
+            overloadBuff = GetBuff("ManipulatorOverloadSlashBuff", "OVERLOAD");
+            chillDebuff = GetBuff("ManipulatorChillDebuff", "CHILL");
+            chillCooldown = GetBuff("ManipulatorChillCooldown", "CHILLCD");
         }
 
-        internal static BuffDef GetBuff(string buffName)
+        internal static BuffDef GetBuff(string buffName, string tokenName)
         {
             BuffDef def = Assets.mainAssetBundle.LoadAsset<BuffDef>(buffName);
-            buffs.Add(def);
+            if (def)
+            {
+                buffs.Add(def);
 
-            return def;
+                if (ModCompatibility.BetterUICompat.betterUIInstalled)
+                {
+                    ModCompatibility.BetterUICompat.RegisterBuffInfo(def, $"{Tokens.prefix}BUFF_{tokenName}_NAME", $"{Tokens.prefix}BUFF_{tokenName}_DESC");
+                }
+
+                return def;
+            }
+            else return null;
+        }
+
+        internal static void BetterUIBuffDescs()
+        {
+            
         }
 
         internal static void HandleBuffs(CharacterBody body)
@@ -56,6 +73,11 @@ namespace ManipulatorMod.Modules
                 {
                     body.moveSpeed = body.moveSpeed * StaticValues.jetpackSpeedMulti;
                     body.acceleration = body.acceleration * (StaticValues.jetpackSpeedMulti * 2);
+                }
+                if (body.HasBuff(overloadBuff))
+                {
+                    body.moveSpeed = body.moveSpeed * (1 + StaticValues.OverloadSpeedBuffMulti);
+                    body.attackSpeed = body.attackSpeed * (1 + StaticValues.OverloadAttackBuffMulti);
                 }
             }
         }

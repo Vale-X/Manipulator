@@ -1,8 +1,15 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
 using UnityEngine;
+using UnityEngine.Networking;
+using R2API;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
+using RoR2.UI;
+using UnityEngine.EventSystems;
 
 namespace ManipulatorMod.Modules
 {
@@ -24,12 +31,14 @@ namespace ManipulatorMod.Modules
         private static void PrintEntityStatesForConfigNames()
         {
             var state = new SerializableEntityStateType(typeof(ManipulatorMod.SkillStates.ElementalSpellFire));
-            Debug.LogWarning(ManipulatorPlugin.MODNAME + ": DEBUG: TypeName print: " + state.typeName);
+            if (ManipulatorPlugin.debug)
+            {
+                Debug.LogWarning(ManipulatorPlugin.MODNAME + ": DEBUG: TypeName print: " + state.typeName);
+            }
         }
 
         public static void StartDebug()
         {
-
         }
     }
 

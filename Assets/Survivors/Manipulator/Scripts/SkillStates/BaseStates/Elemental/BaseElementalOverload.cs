@@ -57,6 +57,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
                 this.hasFired = true;
                 this.ElementBurst();
                 this.SwitchElement((ManipulatorController.Element)this.nextElement);
+                this.characterBody.AddTimedBuff(Buffs.overloadBuff, StaticValues.overloadBuffDuration);
             }
 
             if (this.fixedAge <= this.fireTime && !this.hasFired && base.isAuthority)

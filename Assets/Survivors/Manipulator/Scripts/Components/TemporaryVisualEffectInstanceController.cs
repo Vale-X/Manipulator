@@ -1,35 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RoR2;
 using UnityEngine;
-using RoR2;
 
 namespace ManipulatorMod.Modules.Components
 {
     [RequireComponent(typeof(TemporaryVisualEffect))]
     class TemporaryVisualEffectInstanceController : MonoBehaviour
     {
-        public float duration;
+        public float startDuration;
         public TemporaryVisualEffect temporaryVisualEffect;
 
         private float timer;
 
         public void Awake()
         {
-            this.temporaryVisualEffect = this.gameObject.GetComponent<TemporaryVisualEffect>();
         }
 
         public void Start()
         {
-            this.timer = this.duration;
+            this.timer = this.startDuration;
+            if (temporaryVisualEffect) Debug.LogWarning("TVEIC: No TVE linked!");
+        }
+
+        public void RefreshDuration()
+        {
+            this.timer = this.startDuration;
+        }
+
+        public void AddDuration(float addDuration)
+        {
+            this.timer += addDuration;
         }
 
         public void LateUpdate()
         {
             if (!this.temporaryVisualEffect)
             {
+                Destroy(this);
                 return;
             }
             if (this.temporaryVisualEffect.visualState == TemporaryVisualEffect.VisualState.Enter)

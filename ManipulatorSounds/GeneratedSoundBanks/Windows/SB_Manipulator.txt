@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2807587238	Play_mani_blackboxping			\Default Work Unit\Mani\Play_mani_blackboxping	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	185291071	BlackBoxPing	D:\TK\ThunderkitManipulator\ManipulatorSounds\.cache\Windows\SFX\BlackBoxPing_56D34C19.wem		\Actor-Mixer Hierarchy\Default Work Unit\BlackBoxPing		326636
+

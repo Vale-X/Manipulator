@@ -1,4 +1,4 @@
-﻿/*using RoR2;
+﻿using RoR2;
 using System;
 using UnityEngine;
 using ManipulatorMod.Modules;
@@ -52,4 +52,4 @@ namespace ManipulatorMod.Achievements
 
 
     }
-}*/
+}

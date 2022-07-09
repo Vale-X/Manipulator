@@ -175,12 +175,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814510991671617446}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.18578525, y: 0.32999638, z: 0.11025914, w: 0.91892827}
+  m_LocalPosition: {x: 0.001, y: -0.361, z: -0.047}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4888789041496639143}
-  m_Father: {fileID: 7434337364699252263}
+  m_Father: {fileID: 8819536325210377339}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3343121295563713843
@@ -435,8 +435,9 @@ GameObject:
   - component: {fileID: 2874006675862813030}
   - component: {fileID: 444036551813957561}
   - component: {fileID: 143657326322461149}
+  - component: {fileID: 3654890848450659864}
   m_Layer: 0
-  m_Name: FlashingLight
+  m_Name: Alert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,7 +455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7434337364699252263}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &444036551813957561
 Light:
@@ -468,14 +469,14 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 15
-  m_Range: 10
+  m_Range: 15
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.5
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -551,6 +552,21 @@ MonoBehaviour:
   timeMax: 2
   loop: 1
   randomStart: 1
+--- !u!114 &3654890848450659864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124498322084494193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1132406345, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  akSoundString: Play_mani_blackbox_ping
+  repeatInterval: 4
+  soundOwner: {fileID: 7434337364699252263}
 --- !u!1 &6114781558217467764
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +671,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7457669808925514066}
   - {fileID: 7434337364699252263}
   - {fileID: 8199653687339121598}
   m_Father: {fileID: 0}
@@ -692,7 +709,7 @@ Transform:
   - {fileID: 3919187681290574897}
   - {fileID: 5286190106025247610}
   m_Father: {fileID: 8819536325210377339}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7668806119930540352
 GameObject:
@@ -802,10 +819,9 @@ Transform:
   m_LocalPosition: {x: 0.001, y: -0.361, z: -0.047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7457669808925514066}
   - {fileID: 2874006675862813030}
   m_Father: {fileID: 8819536325210377339}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -24.47, y: 38.413, z: 5.044}
 --- !u!114 &2904396523787441827
 MonoBehaviour:

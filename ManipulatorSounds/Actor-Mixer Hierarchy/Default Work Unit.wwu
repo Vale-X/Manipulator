@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{9F6DA0CB-B0EB-41C1-92C1-204EF235C21B}" SchemaVersion="89">
 	<AudioObjects>
-		<WorkUnit Name="Default Work Unit" ID="{9F6DA0CB-B0EB-41C1-92C1-204EF235C21B}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{9F6DA0CB-B0EB-41C1-92C1-204EF235C21B}" PersistMode="Standalone">
+			<ChildrenList>
+				<ActorMixer Name="SFX Mixer" ID="{99E6E442-4AD3-4697-A229-0132F1184F84}" ShortID="1032637522">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{F5FF85FE-05B8-45C0-9CCF-C4BEABE39170}" ShortID="657728354">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="Volume_SFX" ID="{77327340-2723-4B0A-8A60-A4B8345F054D}" WorkUnitID="{7A6F6F36-A425-476C-A33A-886C2B216CC3}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{DC03F68A-464E-4E0E-B5D5-F501D89AD987}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{670FED22-0F17-4B99-A52B-E766BFF52BB7}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{21BF5C50-3FAE-4F95-B2BC-E82AD6572745}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Folder Name="Manipulator" ID="{0412E127-CFEF-42BA-9599-45C377CE40A3}" ShortID="791461251">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="15"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<Sound Name="BlackBoxPing" ID="{D75490B1-3F86-4662-A5E0-6E97D01D8E7A}" ShortID="995227924">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
+										<Property Name="OverrideEffect" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{6FC965F4-FC9C-4129-8123-ABE311E4DB4F}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="30"/>
+															<Property Name="Min" Type="Real64" Value="-30"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-17.5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Att_BlackBox" ID="{7A7EF0E2-5AB0-419E-AB66-2700E73561C0}" WorkUnitID="{C2131C53-B7C4-4980-98D6-DB06178A2320}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{670FED22-0F17-4B99-A52B-E766BFF52BB7}"/>
+										</Reference>
+										<Reference Name="Effect0" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+											<ObjectRef Name="Hall_Large_Bright" ID="{CB602948-2D1D-4977-A8D5-378184293E80}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{21BF5C50-3FAE-4F95-B2BC-E82AD6572745}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlackBoxPing2" ID="{8F04B52B-4CB7-4E66-B27D-2B7C2D906131}" ShortID="906892482">
+											<Language>SFX</Language>
+											<AudioFile>BlackBoxPing2.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="BlackBoxPing2" ID="{8F04B52B-4CB7-4E66-B27D-2B7C2D906131}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
 	</AudioObjects>
 </WwiseDocument>

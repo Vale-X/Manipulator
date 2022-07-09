@@ -37,3 +37,7 @@ MonoBehaviour:
       fieldValue:
         stringValue: 0.25
         objectValue: {fileID: 0}
+    - fieldName: chargePrefab
+      fieldValue:
+        stringValue: 
+        objectValue: {fileID: 0}

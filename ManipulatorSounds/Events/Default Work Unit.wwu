@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{F9972812-3103-462A-A40B-D06EACBA4E3F}" SchemaVersion="89">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{F9972812-3103-462A-A40B-D06EACBA4E3F}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{F9972812-3103-462A-A40B-D06EACBA4E3F}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Mani" ID="{82C1E143-8CDA-4A34-881B-67FB8CD77830}" ShortID="741953455">
+					<ChildrenList>
+						<Event Name="Play_mani_blackbox_ping" ID="{103BECEC-0F0D-4C49-B9CB-0DF93C7AFF10}">
+							<ChildrenList>
+								<Action Name="" ID="{64A4050D-2FE6-40A9-A5F6-A8CB042D1CB2}" ShortID="1007382630">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="BlackBoxPing" ID="{D75490B1-3F86-4662-A5E0-6E97D01D8E7A}" WorkUnitID="{9F6DA0CB-B0EB-41C1-92C1-204EF235C21B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

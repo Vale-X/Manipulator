@@ -33,14 +33,14 @@ namespace ManipulatorMod.Modules.Components
         public void Awake()
         {
             this.projectileController = base.GetComponent<ProjectileController>();
-            Debug.LogWarning(this.projectileController);
+            //Debug.LogWarning(this.projectileController);
         }
 
         public void Start()
         {
             if (this.projectileController)
             {
-                Debug.LogWarning(this.projectileController.owner);
+                //Debug.LogWarning(this.projectileController.owner);
                 this.manipulatorController = this.projectileController.owner.GetComponent<ManipulatorController>();
             }
         }

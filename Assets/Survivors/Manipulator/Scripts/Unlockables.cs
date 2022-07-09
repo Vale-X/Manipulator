@@ -1,22 +1,15 @@
-﻿using Mono.Cecil.Cil;
+﻿using ManipulatorMod.Achievements;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using R2API;
 using RoR2;
-using RoR2.Achievements;
+using RoR2.UI.LogBook;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using ManipulatorMod.Achievements;
-using R2API;
-using RoR2.UI.LogBook;
-using HG;
 
 namespace ManipulatorMod.Modules
 {
-    /*internal class Unlockables
+    internal class Unlockables
     {
         // Unlockables are added at runtime (do not add them to the content pacK). One for each script that inherits from ThunderHenryAchievement.
         public static List<UnlockableDef> loadedUnlockableDefs = new List<UnlockableDef>();
@@ -35,7 +28,10 @@ namespace ManipulatorMod.Modules
                 loadedUnlockableDefs.Add(UnlockableAPI.AddUnlockable<ManipulatorOverload>(FindUnlockable("Skills.Manipulator.Overload")));
                 loadedUnlockableDefs.Add(UnlockableAPI.AddUnlockable<ManipulatorJump>(typeof(ManipulatorJump.ManipulatorJumpServerAchievement), FindUnlockable("Skills.Manipulator.VentedRise")));
             }
-            loadedUnlockableDefs.Add(UnlockableAPI.AddUnlockable<ManipulatorMastery>(FindUnlockable("Skins.Manipulator.Alt1")));
+            if (!Config.forceUnlockSkins.Value)
+            {
+                loadedUnlockableDefs.Add(UnlockableAPI.AddUnlockable<ManipulatorMastery>(FindUnlockable("Skins.Manipulator.Alt1")));
+            }
             loadedUnlockableDefs.Add(UnlockableAPI.AddUnlockable<ManipulatorNya>(FindUnlockable("Skins.Manipulator.Nya")));
         }
 
@@ -43,7 +39,7 @@ namespace ManipulatorMod.Modules
         {
             return Modules.Assets.mainAssetBundle.LoadAsset<UnlockableDef>(name);
         }
-    }*/
+    }
 
     internal class HiddenSkin
     {

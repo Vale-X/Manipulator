@@ -23,6 +23,7 @@ using Debug = UnityEngine.Debug;
 //Do a 'Find and Replace' on the ThunderHenry namespace. Make your own namespace, please.
 namespace ManipulatorMod
 {
+    [BepInDependency("com.xoxfaby.BetterUI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.valex.ShaderConverter", BepInDependency.DependencyFlags.HardDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
@@ -33,7 +34,10 @@ namespace ManipulatorMod
         "LanguageAPI",
         "SoundAPI",
         "UnlockableAPI",
-        "DotAPI"
+        "DotAPI",
+        "OrbAPI",
+        "TempVisualEffectAPI",
+        "CommandHelper"
     })]
     public class ManipulatorPlugin : BaseUnityPlugin
     {
@@ -42,21 +46,23 @@ namespace ManipulatorMod
         //   this shouldn't even have to be said
         public const string MODUID = "com.valex.ManipulatorMod";
         public const string MODNAME = "ManipulatorMod";
-        public const string MODVERSION = "0.4.0";
+        public const string MODVERSION = "0.5.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "VALE";
 
         // use this to toggle debug on stuff, make sure it's false before releasing
-        public static bool debug = true;
+        public static bool debug = false;
 
         public static bool cancel;
 
         public static ManipulatorPlugin instance;
+        public static PluginInfo pluginInfo;
 
         private void Awake()
         {
             instance = this;
+            pluginInfo = Info;
 
             // Load/Configure everything
             Modules.Config.ReadConfig();
@@ -67,7 +73,7 @@ namespace ManipulatorMod
             Modules.Prefabs.Init();
             Modules.Buffs.Init();
             Modules.ItemDisplays.Init();
-            Modules.UnlockablesTemp.Init();
+            Modules.Unlockables.Init();
             
             
             // Any debug stuff you need to do can go here before initialisation
@@ -81,6 +87,7 @@ namespace ManipulatorMod
 
         private void Start()
         {
+            Modules.SoundBankManager.Init();
             if (debug) { Modules.Helpers.StartDebug(); }
         }
 

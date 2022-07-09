@@ -24,29 +24,61 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 505cbf21ae3f954fb2bce82ad6572745
     GuidInternal: 
-    m_lastTime: -8585727809284274382
+    m_lastTime: -8585654667159639619
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 3020f63c19a1334389b9a0562c43d46f
     GuidInternal: 
-    m_lastTime: -8585727809284420780
-    List: []
+    m_lastTime: -8585654660506906600
+    List:
+    - name: SB_Manipulator
+      guid: b1e81cb4f98ba445b302f9df0081d951
+      id: 1416593635
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SB_Manipulator
+        ObjectType: 7
+      Path: Default Work Unit\SB_Manipulator
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 122897f903312a46a40bd06eacba4e3f
     GuidInternal: 
-    m_lastTime: -8585727809284313419
-    List: []
+    m_lastTime: -8585654494399697834
+    List:
+    - name: Play_mani_blackbox_ping
+      guid: ecec3b100d0f494cb9cb0df93c7aff10
+      id: 204091665
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Mani
+        ObjectType: 4
+      - ElementName: Play_mani_blackbox_ping
+        ObjectType: 3
+      Path: Default Work Unit\Mani\Play_mani_blackbox_ping
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 366f6f7a25a46c47a33a886c2b216cc3
     GuidInternal: 
-    m_lastTime: -8585727809284440298
-    List: []
+    m_lastTime: -8585654668892340593
+    List:
+    - name: Volume_SFX
+      guid: 4073327723270a4b8a60a4b8345f054d
+      id: 3673881719
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Volume_SFX
+        ObjectType: 13
+      Path: Default Work Unit\Volume_SFX
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -70,5 +102,10 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ManipulatorSounds
+  - /ManipulatorSounds/Events
+  - /ManipulatorSounds/Events/Default Work Unit
+  - /ManipulatorSounds/Events/Default Work Unit/Mani
+  - /ManipulatorSounds/SoundBanks
+  - /ManipulatorSounds/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: Release

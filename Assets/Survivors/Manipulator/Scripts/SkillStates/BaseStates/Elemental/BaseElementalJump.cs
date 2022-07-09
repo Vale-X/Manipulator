@@ -8,23 +8,12 @@ using UnityEngine.Networking;
 using RoR2;
 using RoR2.Projectile;
 using ManipulatorMod.Modules;
+using ManipulatorMod.Modules.Components;
 
 namespace ManipulatorMod.SkillStates.BaseStates
 {
     public class BaseElementalJump : ManipulatorMain
     {
-        [SerializeField]
-        public float duration;
-        [SerializeField]
-        public float blastAttackRadius;
-        [SerializeField]
-        public float blastAttackProcCoefficient;
-        [SerializeField]
-        public float blastAttackDamageCoefficient;
-        [SerializeField]
-        public float blastAttackForce;
-        [SerializeField]
-        public int blastDamageType;
         [SerializeField]
         public string beginSoundString;
         [SerializeField]
@@ -37,8 +26,6 @@ namespace ManipulatorMod.SkillStates.BaseStates
         public GameObject muzzleflashEffect;
         [SerializeField]
         public AnimationCurve speedCoefficientCurve;
-        [SerializeField]
-        public float speedCoefficient;
 
         protected float fireDamageBonus
         {
@@ -48,13 +35,18 @@ namespace ManipulatorMod.SkillStates.BaseStates
             }
         }
 
+        private float duration;
         private Vector3 flyVector = Vector3.zero;
         private Vector3 blastPosition;
         private Transform modelTransform;
+        private ManipulatorController maniController;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            this.maniController = base.GetComponent<ManipulatorController>();
+            this.duration = StaticValues.jumpDuration;
+
             if (!string.IsNullOrEmpty(this.beginSoundString)) Util.PlaySound(this.beginSoundString, base.gameObject);
             this.modelTransform = base.GetModelTransform();
             this.flyVector = Vector3.up;
@@ -62,6 +54,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
             base.PlayCrossfade("Body", "FlyUp", "FlyUp.playbackRate", this.duration, 0.1f);
             base.characterMotor.Motor.ForceUnground();
             base.characterMotor.velocity = Vector3.zero;
+
             if (this.muzzleflashEffect)
             {
                 EffectManager.SimpleMuzzleFlash(this.muzzleflashEffect, base.gameObject, "MuzzleLeft", false);
@@ -84,7 +77,7 @@ namespace ManipulatorMod.SkillStates.BaseStates
                         rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
                         owner = base.gameObject,
                         damage = StaticValues.jumpDamageCoefficient * this.damageStat * this.fireDamageBonus,
-                        force = 400f,
+                        force = StaticValues.jumpAttackForce,
                         crit = base.RollCrit(),
                         damageColorIndex = DamageColorIndex.Default,
                         target = null,
@@ -93,12 +86,18 @@ namespace ManipulatorMod.SkillStates.BaseStates
                     ProjectileManager.instance.FireProjectile(blinkExplosionInfo);
                 }
             }
+            if (maniController)
+            {
+                maniController.jetStopwatch.Reset();
+                maniController.endJet = false;
+            }
+            else Debug.LogWarning("No mani controller found");
         }
 
         public override void HandleMovements()
         {
             base.HandleMovements();
-            base.characterMotor.rootMotion += this.flyVector * (this.moveSpeedStat * this.speedCoefficientCurve.Evaluate(base.fixedAge / this.duration) * Time.fixedDeltaTime * this.speedCoefficient);
+            base.characterMotor.rootMotion += this.flyVector * (this.moveSpeedStat * this.speedCoefficientCurve.Evaluate(base.fixedAge / this.duration) * Time.fixedDeltaTime * StaticValues.jumpSpeedCoefficient);
             base.characterMotor.velocity.y = 0f;
         }
 

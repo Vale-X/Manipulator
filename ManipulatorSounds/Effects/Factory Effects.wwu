@@ -769,7 +769,7 @@
 							<ChildrenList>
 								<Effect Name="Hall_Large_Bright" ID="{CB602948-2D1D-4977-A8D5-378184293E80}" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
 									<PropertyList>
-										<Property Name="DecayTime" Type="Real32" Value="4.9"/>
+										<Property Name="DecayTime" Type="Real32" Value="2.5"/>
 										<Property Name="Density" Type="Real32" Value="70"/>
 										<Property Name="DryLevel" Type="Real32" Value="-2"/>
 										<Property Name="ERLevel" Type="Real32" Value="-23"/>

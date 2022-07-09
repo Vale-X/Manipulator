@@ -31,7 +31,7 @@ MonoBehaviour:
         objectValue: {fileID: 0}
     - fieldName: blastAttackDamageCoefficient
       fieldValue:
-        stringValue: 1.5
+        stringValue: 1
         objectValue: {fileID: 0}
     - fieldName: blastAttackForce
       fieldValue:

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ManipulatorChillDebuff
   m_EditorClassIdentifier: 
   iconPath: 
-  iconSprite: {fileID: 21300000, guid: 5d3e8043060c9e24791582ee89e38d25, type: 3}
-  buffColor: {r: 1, g: 1, b: 1, a: 1}
+  iconSprite: {fileID: 21300000, guid: 6686de3b7eb470f47aeb3a19a6a4c303, type: 3}
+  buffColor: {r: 0.21568628, g: 0.73333335, b: 0.88235295, a: 1}
   canStack: 1
   eliteDef: {fileID: 0}
   isDebuff: 0

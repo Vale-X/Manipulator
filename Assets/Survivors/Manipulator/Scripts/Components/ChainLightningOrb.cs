@@ -27,6 +27,7 @@ namespace ManipulatorMod.Modules.Components
 			if (this.ownerBody.HasBuff(Modules.Buffs.lightningBuff)) this.hasLightningBuff = true;
 			if (this.ownerBody.HasBuff(Modules.Buffs.iceBuff)) this.hasIceBuff = true;
 			orbEffect = Resources.Load<GameObject>("Prefabs/Effects/OrbEffects/LightningOrbEffect");
+			this.damageCoefficientPerBounce = 0.9f;
 
 			FlattenOrbEffect(orbEffect);
 

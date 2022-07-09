@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ManipulatorContentPack
   m_EditorClassIdentifier: 
   bodyPrefabs:
-  - {fileID: 1553190485750556663, guid: bd791d6404f562f49998cfe7297b2846, type: 3}
+  - {fileID: 1509063023196512162, guid: 0a1e72c2ce4ed7a4b84f7b89faced8cc, type: 3}
   masterPrefabs: []
   projectilePrefabs:
   - {fileID: 5107768773801245093, guid: da48bf3680b7e314a9426e0a43d4d17d, type: 3}
@@ -28,6 +28,7 @@ MonoBehaviour:
   - {fileID: 6777689347032026040, guid: 9e0cf4ecc9395eb48a6c0c7d9eb28a99, type: 3}
   - {fileID: 8526909237491715672, guid: 1b8659c54600d1c49ae134a78cc82a7c, type: 3}
   - {fileID: 4211786431770315459, guid: dd16aaabd0abff940ac1f787fb259928, type: 3}
+  - {fileID: 8110940665441108041, guid: 39954443106466046b339fe2a14a89fc, type: 3}
   gameModePrefabs: []
   networkedObjectPrefabs: []
   skillDefs:
@@ -55,13 +56,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4bfcd6b2bc0dec4480dc49e9593b638, type: 2}
   - {fileID: 11400000, guid: 8bd7c6617608c9d499bbae9cc0e7efac, type: 2}
   - {fileID: 11400000, guid: 6a0a27c0ab078864d929bc419ca9a8ca, type: 2}
+  - {fileID: 11400000, guid: b4760ec90ad04da44a5c37d2fe346448, type: 2}
   eliteDefs: []
   unlockableDefs: []
   survivorDefs:
-  - {fileID: 11400000, guid: fb2f77f99ba1aed4e8864dd5b4d784d9, type: 2}
+  - {fileID: 11400000, guid: bb6ed69ab3479d74cbf302faaf5b7f3e, type: 2}
   artifactDefs: []
   surfaceDefs: []
-  networkSoundEventDefs: []
+  networkSoundEventDefs:
+  - {fileID: 11400000, guid: b2f76170240862440aac801c4ba57a10, type: 2}
   musicTrackDefs: []
   gameEndingDefs: []
   entityStateConfigurations: []

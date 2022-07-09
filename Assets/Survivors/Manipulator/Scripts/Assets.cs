@@ -23,11 +23,19 @@ namespace ManipulatorMod.Modules
 		internal const string contentPackName = "ManipulatorContentPack";
 
 		//Name of the your soundbank file, if any.
-		internal const string soundBankName = ""; //HenryBank
+		internal const string soundBankName = "SB_Manipulator"; //HenryBank
 
 		internal static AssetBundle mainAssetBundle = null;
 		internal static ContentPack mainContentPack = null;
 		internal static SerializableContentPack serialContentPack = null;
+
+		internal static string assemblyDir
+		{
+			get
+			{
+				return Path.GetDirectoryName(ManipulatorPlugin.pluginInfo.Location);
+			}
+		}
 
 		internal static List<EffectDef> effectDefs = new List<EffectDef>();
 
@@ -50,7 +58,6 @@ namespace ManipulatorMod.Modules
 			}
 
             LoadAssetBundle();
-			LoadSoundBank();
             PopulateAssets();
         }
 
@@ -65,6 +72,8 @@ namespace ManipulatorMod.Modules
 				ManipulatorPlugin.cancel = true;
 				return;
 			}
+
+			OrbAPI.AddOrb(typeof(Components.ChainLightningOrb));
 		}
 
 		// Loads the AssetBundle, which includes the Content Pack.
@@ -95,31 +104,6 @@ namespace ManipulatorMod.Modules
 			AddEntityStateConfigs();
 			CreateEffectDefs();
 			ContentPackProvider.contentPack = mainContentPack;
-		}
-
-
-		// Loads the sound bank for any custom sounds. 
-        internal static void LoadSoundBank()
-        {
-			if (soundBankName == "mysoundbank")
-			{
-				Debug.LogError(ManipulatorPlugin.MODNAME + ": SoundBank name hasn't been changed - not loading SoundBank to avoid conflicts.");
-				return;
-			}
-
-			if (soundBankName == "")
-            {
-				Debug.LogFormat(ManipulatorPlugin.MODNAME + ": SoundBank name is blank. Skipping loading SoundBank.");
-				return;
-
-			}
-
-			using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream(ManipulatorPlugin.MODNAME + "." + soundBankName +".bnk"))
-			{
-				byte[] array = new byte[manifestResourceStream2.Length];
-				manifestResourceStream2.Read(array, 0, array.Length);
-				SoundAPI.SoundBanks.Add(array);
-			}
 		}
 
 		// Gathers all GameObjects with VFXAttributes attached and creates an EffectDef for each one.
@@ -154,8 +138,19 @@ namespace ManipulatorMod.Modules
 		// Saves fuss of having to add them manually. Credit to KingEnderBrine for this code.
 		internal static void AddEntityStateTypes()
         {
-			mainContentPack.entityStateTypes.Add(((IEnumerable<System.Type>)Assembly.GetExecutingAssembly().GetTypes()).Where<System.Type>
-				((Func<System.Type, bool>)(type => typeof(EntityState).IsAssignableFrom(type))).ToArray<System.Type>());
+			Debug.LogWarning("Adding types...");
+			try
+			{
+				mainContentPack.entityStateTypes.Add(((IEnumerable<System.Type>)Assembly.GetExecutingAssembly().GetTypes()).Where<System.Type>
+					((Func<System.Type, bool>)(type => typeof(EntityState).IsAssignableFrom(type))).ToArray<System.Type>());
+			}
+			catch (ReflectionTypeLoadException ex)
+            {
+				foreach (Exception x in ex.LoaderExceptions)
+                {
+					Debug.LogError(x.Message);
+                }
+            }
 
 			if (ManipulatorPlugin.debug)
 			{
@@ -224,4 +219,26 @@ namespace ManipulatorMod.Modules
 			yield break;
 		}
 	}
+
+	public static class SoundBankManager
+    {
+		//Hey thanks Kevin for the sound setup stuff
+		public static string soundBankDirectory
+        {
+            get
+            {
+				return Path.Combine(Assets.assemblyDir, "soundbanks/" + Assets.soundBankName + ".bnk");
+            }
+        }
+
+		public static void Init()
+        {
+			byte[] bank = File.ReadAllBytes(soundBankDirectory);
+			SoundAPI.SoundBanks.Add(bank);
+			/*AkSoundEngine.AddBasePath(soundBankDirectory);
+			AkSoundEngine.LoadFilePackage("ManipulatorSounds.pck", out var packageID, -1);
+			AkSoundEngine.LoadBank("SB_Manipulator", -1, out var bankID);
+			AkSoundEngine.LoadBank("ManiInit", -1, out var initID);*/
+        }
+    }
 }

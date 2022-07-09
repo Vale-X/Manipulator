@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{3CF62030-A119-4333-89B9-A0562C43D46F}" SchemaVersion="89">
 	<SoundBanks>
-		<WorkUnit Name="Default Work Unit" ID="{3CF62030-A119-4333-89B9-A0562C43D46F}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{3CF62030-A119-4333-89B9-A0562C43D46F}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="SB_Manipulator" ID="{B41CE8B1-8BF9-45A4-B302-F9DF0081D951}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_mani_blackbox_ping" ID="{103BECEC-0F0D-4C49-B9CB-0DF93C7AFF10}" WorkUnitID="{F9972812-3103-462A-A40B-D06EACBA4E3F}" Filter="7" Origin="Manual"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundBanks>
 </WwiseDocument>

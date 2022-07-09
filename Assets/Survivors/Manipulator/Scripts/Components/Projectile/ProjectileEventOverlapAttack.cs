@@ -47,6 +47,45 @@ namespace ManipulatorMod.Modules.Components
             this.FireAttack();
         }
 
+        public void SetDamageCoefficient(float newDamage)
+        {
+            this.damageCoefficient = newDamage;
+        }
+
+        public void AddDamageCoefficient(float addDamage)
+        {
+            this.damageCoefficient += addDamage;
+        }
+
+        public void SetProcCoefficient(float newProc)
+        {
+            this.procCoefficient = newProc;
+        }
+
+        public void AddProcCoefficient(float addProc)
+        {
+            this.procCoefficient += addProc;
+        }
+
+        public void SetBonusForce(Vector3 newForce)
+        {
+            this.bonusForce = newForce;
+        }
+        public void AddBonusForce(Vector3 addForce)
+        {
+            this.bonusForce += addForce;
+        }
+
+        public void SetAttackString(string newString)
+        {
+            this.attackSoundString = newString;
+        }
+
+        public void SetImpactEffect(GameObject inEffect)
+        {
+            this.impactEffect = inEffect;
+        }
+
         public void FireAttack()
         {
             if (!String.IsNullOrEmpty(this.attackSoundString))

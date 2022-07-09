@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: -1881990681, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
   m_Name: ManipulatorDef
   m_EditorClassIdentifier: 
-  bodyPrefab: {fileID: 1553190485750556663, guid: bd791d6404f562f49998cfe7297b2846,
+  bodyPrefab: {fileID: 1509063023196512162, guid: 0a1e72c2ce4ed7a4b84f7b89faced8cc,
     type: 3}
-  displayPrefab: {fileID: 5101809363777200343, guid: c9ea01cf1696dc248b72b79612e98668,
+  displayPrefab: {fileID: 7998700605162061856, guid: 8728970a4c8048044bb97bca9e43c404,
     type: 3}
   unlockableName: 
-  unlockableDef: {fileID: 11400000, guid: 0221f8f324ed6434ab5a5b9d6dca306b, type: 2}
+  unlockableDef: {fileID: 0}
   displayNameToken: VALE_MANIPULATOR_BODY_NAME
   descriptionToken: VALE_MANIPULATOR_BODY_DESCRIPTION
   outroFlavorToken: VALE_MANIPULATOR_BODY_OUTRO_FLAVOR
   mainEndingEscapeFailureFlavorToken: VALE_MANIPULATOR_BODY_OUTRO_FAILURE
-  primaryColor: {r: 0.635, g: 0.745, b: 0.839, a: 1}
+  primaryColor: {r: 0.63529414, g: 0.74509805, b: 0.8392157, a: 1}
   desiredSortPosition: 6.005
   hidden: 0

@@ -8,12 +8,11 @@ namespace ManipulatorMod.Modules
         // Used everywhere within tokens. Format is DeveloperPrefix + BodyPrefix + unique per token
         // A full example token for ThunderHenry would be ROBVALE_THUNDERHENRY_BODY_UNLOCK_SURVIVOR_NAME.
         internal const string maniPrefix = "_MANIPULATOR_BODY_";
+        internal const string prefix = ManipulatorPlugin.developerPrefix + maniPrefix;
 
         internal static void Init()
         {
             #region Manipulator
-            string prefix = ManipulatorPlugin.developerPrefix + maniPrefix;
-
             #region info
 
             string desc = "Manipulator can swap between elements to adapt to the situation, using the power of Fire, Lightning or Ice.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
@@ -58,7 +57,7 @@ namespace ManipulatorMod.Modules
 
             // I wish there were ways to add miscellanious lore to the game cause I wanna write more stuff.
             // Considering making an item just to add more lore lmao
-            string logLore = "The House Beyond Black Box barely holds itself together, plating and connections so loosened over countless years. The information inside is even less stable. Fragmented log pieces and corrupted data is difficult to work with, but one who is technically minded would be able to barely piece together what this box has witnessed. The High Court's advanced intelligence systems, however, are more than sufficient.\n\n" +
+            string itemLore = "The House Beyond Black Box barely holds itself together, plating and connections so loosened over degradation and damage. The information inside is even less stable. Fragmented log pieces and corrupted data are difficult to work with, but one who is technically minded would be able to barely piece together what this box has witnessed. The High Court's advanced intelligence systems, however, are more than sufficient.\n\n" +
                 "<style=cStack>" +
                 ">- HC SYSTEM: ATTEMPTING ACCESS: ABB-A1839\n" +
                 ">- HC SYSTEM: .........\n" + 
@@ -86,7 +85,7 @@ namespace ManipulatorMod.Modules
             #region Keywords
             LanguageAPI.Add("KEYWORD_MANI_FIRESPELL", $"<color=#ec8122><style=cKeywordName>Ardent Ring</style></color><style=cSub><color=#ec8122>Fire Invoke</color>. Launch a flaming ring, dealing <style=cIsDamage>{100f * StaticValues.fireSpellDamageCoefficient}% damage</style> and <style=cIsUtility>attaching</style>, dealing <style=cIsDamage>{StaticValues.fireAttachTickMax}x{100f * StaticValues.fireTickDamageCoefficient}% damage</style> over time.");
             LanguageAPI.Add("KEYWORD_MANI_LIGHTNINGSPELL", $"<color=#98509f><style=cKeywordName>Surge</style><style=cSub><color=#98509f>Lightning Invoke</color>. Discharge a bolt that <style=cIsUtility>chains to up to {StaticValues.lightningBounceCount} targets</style>, dealing <style=cIsDamage>{100f * StaticValues.lightningDamageCoefficient}% damage</style> to each.");
-            LanguageAPI.Add("KEYWORD_MANI_ICESPELL", $"<color=#35bbe2><style=cKeywordName>Cryospire</style></color><style=cSub><color=#35bbe2>Ice Invoke</color>. <style=cIsUtility>Freezing.</style> Create a pillar that deals <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style>. The pillar then shatters, dealing <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style> again.");
+            LanguageAPI.Add("KEYWORD_MANI_ICESPELL", $"<color=#35bbe2><style=cKeywordName>Cryospire</style></color><style=cSub><color=#35bbe2>Ice Invoke</color>. <style=cIsUtility>Freezing.</style> Create a pillar that deals <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style>. The pillar then shatters, dealing <style=cIsDamage>{100f * StaticValues.iceExplosionDamageCoefficient}% damage</style>.");
 
             LanguageAPI.Add("KEYWORD_MANI_FIREEFFECT", $"<color=#ec8122><style=cKeywordName>Fire</style></color><style=cSub><style=cIsDamage>Ignite enemies</style> on hit.");
             LanguageAPI.Add("KEYWORD_MANI_LIGHTNINGEFFECT", $"<color=#98509f><style=cKeywordName>Lightning</style></color><style=cSub>Create a <style=cIsDamage>burst of lightning</style>.");
@@ -118,7 +117,7 @@ namespace ManipulatorMod.Modules
             LanguageAPI.Add(prefix + "SECONDARY_SPELL_LIGHTNING_DESCRIPTION", $"Discharge a bolt of lightning that <style=cIsUtility>chains to up to {StaticValues.lightningBounceCount} targets</style>, dealing <style=cIsDamage>{100f * StaticValues.lightningDamageCoefficient}% damage</style> to each.");
 
             LanguageAPI.Add(prefix + "SECONDARY_SPELL_ICE_NAME", "Cryospire");
-            LanguageAPI.Add(prefix + "SECONDARY_SPELL_ICE_DESCRIPTION", $"<style=cIsUtility>Freezing.</style> Create a pillar that deals <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style> to nearby enemies. The pillar then shatters, dealing <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style> again.");
+            LanguageAPI.Add(prefix + "SECONDARY_SPELL_ICE_DESCRIPTION", $"<style=cIsUtility>Freezing.</style> Create a pillar that deals <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style> to nearby enemies. The pillar then shatters, dealing <style=cIsDamage>{100f * StaticValues.icePillarDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Utility
@@ -148,10 +147,42 @@ namespace ManipulatorMod.Modules
             LanguageAPI.Add(prefix + "ELEMENT_ICE_DESCRIPTION", $"Begin stages attuned to <color=#35bbe2>Ice</color>.");
             #endregion
 
+            #region Buffs
+            if (ModCompatibility.BetterUICompat.betterUIInstalled)
+            {
+                //LanguageAPI.Add(prefix + "BUFF_", "");
+                LanguageAPI.Add(prefix + "BUFF_CHILL_NAME", "Chill");
+                LanguageAPI.Add(prefix + "BUFF_CHILL_DESC", "Chilled, slowed for each stack. At maximum stacks, freeze.");
+                LanguageAPI.Add(prefix + "BUFF_CHILLCD_NAME", "Chill Cooldown");
+                LanguageAPI.Add(prefix + "BUFF_CHILLCD_DESC", "Frozen by Chill, and now immune to Chill for a short while.");
+                LanguageAPI.Add(prefix + "BUFF_JETPACK_NAME", "ACE Efficiency");
+                LanguageAPI.Add(prefix + "BUFF_JETPACK_DESC", "The ACE Pack's aerial booster increases movement speed while hovering..");
+                LanguageAPI.Add(prefix + "BUFF_OVERLOAD_NAME", "Overloaded");
+                LanguageAPI.Add(prefix + "BUFF_OVERLOAD_DESC", "Pushing the ACE Pack past it's limits, increasing Cross's melee damage but disabling the wave.");
+                LanguageAPI.Add(prefix + "BUFF_FIRE_NAME", "Fire Conduit");
+                LanguageAPI.Add(prefix + "BUFF_FIRE_DESC", "Enhances the next Secondary or Utility with additional damage.");
+                LanguageAPI.Add(prefix + "BUFF_LIGHTNING_NAME", "Lightning Conduit");
+                LanguageAPI.Add(prefix + "BUFF_LIGHTNING_DESC", "Enhances the next Secondary or Utility with cooldown per hit.");
+                LanguageAPI.Add(prefix + "BUFF_ICE_NAME", "Ice Conduit");
+                LanguageAPI.Add(prefix + "BUFF_ICE_DESC", "Enhances the next Secondary or Utility with barrier per hit.");
+            }
+            #endregion
+
+            #region Items
+            /*LanguageAPI.Add(prefix + "ITEM_BLACKBOX_NAME", "Black Box");
+            LanguageAPI.Add(prefix + "ITEM_BLACKBOX_PICKUP", "Gain X upon gaining a new Buff.");
+            LanguageAPI.Add(prefix + "ITEM_BLACKBOX_DESC", "");
+            LanguageAPI.Add(prefix + "ITEM_BLACKBOX_LORE", itemLore);*/
+            #endregion
+
             #region Achievements
             LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_NAME", "By Act of The Court");
-            LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_DESC", "Recover the data from the Black Box.");
+            LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_DESC", "Recover the data from the lost House Beyond Black Box.");
             LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_UNLOCKABLE_NAME", "By Act of The Court");
+
+            /*LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_NAME2", "Driven for the Heavens");
+            LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_DESC2", "As Artificer, challenge the lone king.");
+            LanguageAPI.Add(prefix + "UNLOCK_SURVIVOR_UNLOCKABLE_NAME2", "Driven for the Heavens");*/
 
             LanguageAPI.Add(prefix + "UNLOCK_MASTERY_NAME", "Manipulator: Mastery");
             LanguageAPI.Add(prefix + "UNLOCK_MASTERY_DESC", "As Manipulator, beat the game or obliterate on Monsoon.");

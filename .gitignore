@@ -74,4 +74,4 @@ crashlytics-build.properties
 # Custom removals
 /[Aa]ssets/[Ee]ditor/PrefabReferencePropertyDrawer.cs
 /[Aa]ssets/[Ee]ditor/PrefabReferencePropertyDrawer.cs.meta
-
+/[Aa]ssets/[Tt]hunderKitSettings/[Ll]ogs/

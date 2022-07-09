@@ -25,7 +25,7 @@ namespace ManipulatorMod.SkillStates
         protected bool successfulFire;
 
         private GameObject chargeEffect;
-        private LightningOrb firedOrb;
+        private SurgeOrb firedOrb;
 
         public override void OnEnter()
         {
@@ -78,35 +78,31 @@ namespace ManipulatorMod.SkillStates
         
         private void FireLightningSpell()
         {
-            ChainLightningOrb newOrb = new ChainLightningOrb()
+            if (initialOrbTarget)
             {
-                lightningType = LightningOrb.LightningType.Ukulele,
-                damageValue = this.damageStat * StaticValues.lightningDamageCoefficient * this.fireDamageBonus,
-                damageCoefficientPerBounce = StaticValues.lightningBounceDamageMulti,
-                procCoefficient = StaticValues.lightningProcCoefficient,
-                bouncesRemaining = StaticValues.lightningBounceCount,
-                range = StaticValues.lightningBounceRange,
-                teamIndex = TeamComponent.GetObjectTeam(base.gameObject),
-                isCrit = base.RollCrit(),
-                attacker = base.gameObject,
-                bouncedObjects = new List<HealthComponent>(),
-                speed = 0f,
-                orbEffectName = "ChainLightningOrbEffect",
-                duration = 0.1f,
-                skillSlot = this.activatorSkillSlot,
-                useBonus = true
-            };
-            HurtBox hurtBox = this.initialOrbTarget;
-            if (hurtBox)
-            {
+                this.hasFired = true;
+                SurgeOrb surgeOrb = new SurgeOrb()
+                {
+                    damageValue = (damageStat * StaticValues.lightningDamageCoefficient) * fireDamageBonus,
+                    damageCoefficientPerBounce = StaticValues.lightningBounceDamageMulti,
+                    procCoefficient = StaticValues.lightningProcCoefficient,
+                    bouncesRemaining = StaticValues.lightningBounceCount,
+                    range = StaticValues.lightningBounceRange,
+                    teamIndex = GetTeam(),
+                    isCrit = RollCrit(),
+                    attacker = gameObject,
+                    bouncedObjects = new List<HealthComponent>(),
+                    duration = 0.02f,
+                    targetSkill = activatorSkillSlot
+                };
                 Transform transform = this.childLocator.FindChild("hand.l");
-                newOrb.origin = transform.position;
-                newOrb.target = hurtBox;
-                OrbManager.instance.AddOrb(newOrb);
+                surgeOrb.origin = transform.position;
+                surgeOrb.target = initialOrbTarget;
+                OrbManager.instance.AddOrb(surgeOrb);
+                this.firedOrb = surgeOrb;
                 this.successfulFire = true;
+                
             }
-            this.hasFired = true;
-            this.firedOrb = newOrb;
         }
 
         public override void OnExit()

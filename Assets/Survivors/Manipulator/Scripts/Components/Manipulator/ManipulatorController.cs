@@ -19,6 +19,7 @@ namespace ManipulatorMod.Modules.Components
         internal bool hasSwapped = false;
         internal ElementalSkillDef[] elementalSkills;
         internal Dictionary<ElementalSkillDef, GenericSkill> elementalDict = new Dictionary<ElementalSkillDef, GenericSkill>();
+        internal Stopwatch jetStopwatch;
         public Element currentElement;
         public enum Element
         {
@@ -32,7 +33,6 @@ namespace ManipulatorMod.Modules.Components
         private CharacterBody characterBody;
         private CharacterModel model;
         private SkillLocator skillLocator;
-        private Stopwatch jetStopwatch;
         private ModelSkinController modelSkinController;
         private ChildLocator childLocator;
         private ModelLocator modelLocator;

@@ -182,7 +182,7 @@ MonoBehaviour:
   explosionSoundString: 
   falloffModel: 0
   blastRadius: 3
-  blastDamageCoefficient: 1
+  blastDamageCoefficient: 0.5
   blastProcCoefficient: 0
   blastAttackerFiltering: 0
   bonusBlastForce: {x: 0, y: 0, z: 0}
